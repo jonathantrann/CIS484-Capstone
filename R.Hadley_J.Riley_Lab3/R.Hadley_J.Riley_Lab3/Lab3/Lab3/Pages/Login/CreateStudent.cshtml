@@ -1,0 +1,84 @@
+﻿@page
+@model Lab3.Pages.Login.CreateStudentModel
+@{
+}
+<style>
+    body {
+        background-color: #CBB677;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: lightslategrey;
+        border: 2px solid #450084;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px;
+    }
+
+        .form-container input {
+            margin: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+
+        .form-container button {
+            background-color: #450084;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+</style>
+
+<h1>Student Sign Up</h1>
+
+<form method="post">
+    <div>
+        <label for="StudentFirst">First Name:</label>
+        <input type="text" id="StudentFirst" name="NewStudent.StudentFirst" />
+    </div>
+    <div>
+        <label for="StudentLast">Last Name:</label>
+        <input type="text" id="StudentLast" name="NewStudent.StudentLast" />
+    </div>
+    <div>
+        <label for="StudentEmailAddress">Email Address:</label>
+        <input type="email" id="StudentEmailAddress" name="NewStudent.StudentEmailAddress" />
+    </div>
+    <div>
+        <label for="StudentPhoneNumber">Phone Number:</label>
+        <input type="tel" id="StudentPhoneNumber" name="NewStudent.StudentPhoneNumber" />
+    </div>
+    <div>
+        <label for="Username">Username:</label>
+        <input type="text" id="Username" name="NewStudent.Username" />
+    </div>
+
+    <button type="button" onclick="populateFields()">Populate</button>
+    <button type="button" onclick="clearFields()">Clear</button>
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    function populateFields() {
+        document.getElementById("StudentFirst").value = "John";
+        document.getElementById("StudentLast").value = "Doe";
+        document.getElementById("StudentEmailAddress").value = "johndoe@example.com";
+        document.getElementById("StudentPhoneNumber").value = "123-456-7890";
+        document.getElementById("Username").value = "johndoe";
+    }
+    
+    function clearFields() {
+        document.getElementById("StudentFirst").value = "";
+        document.getElementById("StudentLast").value = "";
+        document.getElementById("StudentEmailAddress").value = "";
+        document.getElementById("StudentPhoneNumber").value = "";
+        document.getElementById("Username").value = "";
+    }
+</script>

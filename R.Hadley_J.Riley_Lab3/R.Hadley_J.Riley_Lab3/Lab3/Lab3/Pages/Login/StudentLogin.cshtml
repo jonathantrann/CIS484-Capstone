@@ -1,0 +1,52 @@
+﻿@page
+@model Lab3.Pages.Login.StudentLoginModel
+@{
+}
+<head>
+    <style>
+        body {
+            background-color: #CBB677;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #450084;
+            border-color: #450084;
+        }
+
+            .btn-primary:hover {
+                background-color: #4d0099;
+                border-color: #4d0099;
+            }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-6">Student Login</h1>
+    </div>
+    <form asp-page="StudentLogin">
+        <input asp-for="Username" class="form-control" placeholder="Enter Username" />
+        <br />
+        <label>Enter Password:</label>
+        <input asp-for="Password" class="form-control" type="password" />
+        <br />
+        <input type="submit" class="btn btn-primary" />
+    </form>
+    <br />
+    @{
+        if (HttpContext.Session.GetString("Username") != null)
+        {
+            <p class="text-success">@ViewData["LoginMessage"]</p>
+        }
+        else
+        {
+            <p class="text-danger">@ViewData["LoginMessage"]</p>
+        }
+    }
+
+    <div class="align-text-bottom-right">
+        <a class="btn btn-primary" href="/Login/CreateStudent">Create Account</a>
+    </div>
+
+
+</body>

@@ -1,0 +1,132 @@
+CREATE TABLE Faculty(
+	FacultyID int IDENTITY(1,1) PRIMARY KEY,
+	FacultyFirst nvarchar(50) NOT NULL,
+	FacultyLast nvarchar(50) NOT NULL,
+	FacultyEmailAddress varchar (50) NOT NULL,
+	FacultyPhoneNumber varchar (15),
+	OfficeLocation varchar(50) NOT NULL,
+Username varchar (50) NOT NULL
+);
+
+CREATE TABLE Student(
+	StudentID int IDENTITY(1,1) PRIMARY KEY,
+	StudentFirst nvarchar(50) NOT NULL,
+	StudentLast nvarchar(50) NOT NULL,
+	StudentEmailAddress varchar (50) NOT NULL,
+StudentPhoneNumber varchar (15),
+Username varchar (50),
+	StudentPartnerID int FOREIGN KEY REFERENCES Student(StudentID)
+);
+
+CREATE TABLE Class(
+	ClassID int IDENTITY(1,1) PRIMARY KEY,
+	ClassName nvarchar(50) NOT NULL,
+	ClassSection int NOT NULL,
+	ClassStartTime varchar(20) NOT NULL,
+	ClassEndTime varchar(20) NOT NULL,
+	MeetingDays varchar(20) NOT NULL,
+	CreditHours int NOT NULL,
+	ClassDescription varchar(100) NOT NULL,
+	ClassLocation varchar(50) NOT NULL,
+	ClassCapacity int NOT NULL
+);
+
+CREATE TABLE OfficeHours(
+	OfficeHoursID int IDENTITY(1,1) PRIMARY KEY,
+	OfficeHoursDays varchar(20) NOT NULL,
+	OHStartTime varchar(20) NOT NULL,
+	OHEndTime varchar(20) NOT NULL,
+	WaitingRoom varchar (50) NOT NULL,
+	FacultyID int FOREIGN KEY REFERENCES Faculty(FacultyID)
+);
+
+CREATE TABLE Meeting(
+	MeetingID int IDENTITY(1,1) PRIMARY KEY,
+	MeetingLocation varchar(50) NOT NULL,
+	MeetingDate varchar(20) NOT NULL,
+	MeetStartTime varchar(20) NOT NULL,
+	MeetEndTime varchar(20) NOT NULL,
+	MeetingPurpose varchar(50),
+	StudentID int FOREIGN KEY REFERENCES Student(StudentID),
+	FacultyID int FOREIGN KEY REFERENCES Faculty(FacultyID)
+);
+
+CREATE TABLE Queue(
+	QueueID int IDENTITY(1,1) PRIMARY KEY,
+	StudentID int FOREIGN KEY REFERENCES Student(StudentID),
+	OfficeHoursID int FOREIGN KEY REFERENCES OfficeHours(OfficeHoursID)
+);
+
+CREATE TABLE StudentSchedule(
+	StudentScheduleID int IDENTITY (1,1) PRIMARY KEY,
+	StudentID int FOREIGN KEY REFERENCES Student(StudentID),
+	ClassID int FOREIGN KEY REFERENCES Class(ClassID),
+	TotalCreditHours int NOT NULL
+
+);
+
+CREATE TABLE FacultySchedule(
+	FacultyScheduleID int IDENTITY (1,1) PRIMARY KEY,
+	FacultyID int FOREIGN KEY REFERENCES Faculty(FacultyID),
+	ClassID int FOREIGN KEY REFERENCES Class(ClassID)
+
+);
+
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username) VALUES ('Jeremy', 'Ezell',  'ezelljd@jmu.edu', '(540)-568-3222', 'Showker Hall 5010', 'ezelljd');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username) VALUES ('John', 'Guo',  'guocx@jmu.edu', '(540)-568-3052', 'Showker Hall 5037', 'guocx');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username) VALUES ('Dave', 'Jones', 'jonesdh@jmu.edu', '(540)-568-3067', 'Hartman Hall 3022', 'jonesdh');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username) VALUES ('ADMIN', NULL, NULL, NULL, NULL, 'admin');
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID) VALUES ('Jack', 'Riley',  'rileyjb@dukes.jmu.edu', '(540)-568-0000', 'rileyjb', NULL);
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID) VALUES ('Riley', 'Hadley',  'hadleyjr@dukes.jmu.edu', '(540)-568-0001', 'hadleyjr', NULL);
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID) VALUES ('Connor', 'Graham',  'grahamcn@dukes.jmu.edu', '(540)-568-0002', 'grahamcn', NULL);
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID) VALUES ('USER', 'ADMIN', 'admin@lab3.com', '(540)-568-0030', 'admin', NULL);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('CIS 484', '0001', '9:35:00', '10:50:00', 'TuThu', 3, 'CIS Capstone', 'Hartman Hall 2030', 30);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('COB 487', '0001', '8:00:00', '8:50:00', 'MWF', 3, 'COB Capstone', 'Hartman Hall 2025', 30);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('CIS 464', '0001', '9:35:00', '10:50:00', 'MW', 3, 'Project Management', 'Hartman Hall 3043', 30);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, FacultyID) VALUES ('Monday', '9:30:00', '11:30:00', 'Hartman 1001', 1);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, FacultyID) VALUES ('Wednesday', '11:00:00', '14:00:00', 'Hartman 1001', 1);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, FacultyID) VALUES ('Monday', '9:30:00', '11:30:00', 'Hartman 1002', 2);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, FacultyID) VALUES ('Wednesday', '11:00:00', '14:00:00', 'Hartman 1002', 2);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, FacultyID) VALUES ('Monday', '9:30:00', '11:30:00', 'Hartman 1003', 3);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, FacultyID) VALUES ('Wednesday', '11:00:00', '14:00:00', 'Hartman 1003', 3);
+
+INSERT INTO Meeting (MeetingLocation, MeetingDate, MeetStartTime, MeetEndTime, MeetingPurpose, StudentID, FacultyID) VALUES ('Showker Hall 5010', '02/13/2023', '9:30:00', '10:00:00', 'Lab1-Part1 Review', 1, 1);
+
+INSERT INTO Meeting (MeetingLocation, MeetingDate, MeetStartTime, MeetEndTime, MeetingPurpose, StudentID, FacultyID) VALUES ('Hartman Hall 3022', '02/13/2023', '9:30:00', '10:00:00', 'Resume Help', 2, 3);
+
+INSERT INTO Meeting (MeetingLocation, MeetingDate, MeetStartTime, MeetEndTime, MeetingPurpose, StudentID, FacultyID) VALUES ('Showker Hall 5037', '02/13/2023', '9:30:00', '10:00:00', 'Exam 1 Study Questions', 3, 2);
+
+INSERT INTO Queue (StudentID, OfficeHoursID) VALUES (2, 1);
+
+INSERT INTO Queue (StudentID, OfficeHoursID) VALUES (1, 1);
+
+INSERT INTO Queue (StudentID, OfficeHoursID) VALUES (3, 1);
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (2, 1, 3);
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (1, 2, 3);
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (3, 3, 3);
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (3, 1);
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (1, 2);
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (2, 3);

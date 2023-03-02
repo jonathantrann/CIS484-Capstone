@@ -1,0 +1,7 @@
+CREATE TABLE HashedCredentials(
+	HashedCredentialsID int Identity(1,1) PRIMARY KEY,
+	Username nvarchar(200),
+	Password nvarchar(200),
+);
+
+INSERT INTO HashedCredentials(Username, Password) VALUES ('admin', '1000:aZyqoerJFTaXDu2oYURUCZxjzFbbANSY:fLBgMYGC1/RUYllupqWLaubs2Ao=')

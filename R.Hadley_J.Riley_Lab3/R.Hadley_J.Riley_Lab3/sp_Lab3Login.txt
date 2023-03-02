@@ -1,0 +1,12 @@
+CREATE PROCEDURE sp_Lab3Login
+-- You can add parameters here to the Procedure 
+@Username AS NVARCHAR(50),
+@Password AS NVARCHAR(50)
+AS
+BEGIN
+
+	SELECT Password
+	FROM HashedCredentials
+	WHERE Username = @Username;
+
+END;

@@ -1,0 +1,80 @@
+﻿@page
+@model Lab3.Pages.FacultyPages.FacultyHomeModel
+@{
+}
+
+<style>
+    body {
+        background-color: #CBB677;
+    }
+
+    .btn-secondary {
+        background-color: #450084;
+        border-color: #450084;
+    }
+
+        .btn-secondary:hover {
+            background-color: #6b2ebe;
+            border-color: #6b2ebe;
+        }
+</style>
+
+@{
+    var username = HttpContext.Session.GetString("Username");
+}
+
+@*Header*@
+<div class="text-left">
+    Riley Hadley and Jack Riley
+</div>
+
+@*Display JMU Logo*@
+<div class="text-center">
+    <h1 class="display-4">Welcome @username !</h1>
+    <br />
+    <img src="~/images/jmu-seal-rgb-purple.png" />
+</div>
+<br />
+<br />
+
+
+@*Redirect buttons*@
+<div class="text-center">
+    <a class="btn btn-secondary" href="/FacultyPages/MeetingManager">Meeting Manager</a>
+    <a class="btn btn-secondary" href="/FacultyPages/QueueManager">Queue Manager</a>
+    <a class="btn btn-secondary" href="/Index">Logout</a>
+</div>
+<br>
+
+@*Header for faculty list*@
+<div class="text-center">
+    <h1 class="display-6">Faculty List</h1>
+</div>
+
+@*Table of the current faculty*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>FacultyID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            <th>Phone Number</th>
+            <th>Office Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var faculty in Model.FacultyList)
+        {
+            <tr>
+                <td>@faculty.FacultyID</td>
+                <td>@faculty.FacultyFirst</td>
+                <td>@faculty.FacultyLast</td>
+                <td>@faculty.FacultyEmailAddress</td>
+                <td>@faculty.FacultyPhoneNumber</td>
+                <td>@faculty.OfficeLocation</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

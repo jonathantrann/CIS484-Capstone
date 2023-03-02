@@ -1,0 +1,103 @@
+﻿@page
+@using Lab3.Pages.DataClasses;
+@using System.Data.SqlClient;
+@using Lab3.Pages.DB
+@using Microsoft.AspNetCore.Http
+@model Lab3.Pages.StudentPages.SignUpModel
+@{
+}
+
+
+<style>
+    body {
+        background-color: #CBB677;
+    }
+
+    .btn-primary {
+        background-color: #450084;
+        border-color: #450084;
+    }
+
+        .btn-primary:hover {
+            background-color: #6b2ebe;
+            border-color: #6b2ebe;
+        }
+</style>
+
+@*Redirect buttons*@
+<div class="text-center">
+    <h1 class="display-8">Sign Up</h1>
+    <br />
+    <a class="btn btn-secondary" href="/StudentPages/StudentHome">Student Home</a>
+    <a class="btn btn-secondary" href="/StudentPages/Profile">Profile</a>
+    <br />
+</div>
+
+@*Search Bar*@
+<form method="get" asp-page-handler="Search">
+    <input type="text" name="query" placeholder="Search for faculty...">
+    <button type="submit">Search</button>
+</form>
+
+
+@*Dropdown list that outputs office hours availability lists*@
+
+<form asp-page-handler="SingleSelect" method="post">
+    <select asp-for="SelectedFaculty" class="form-select">
+        <option selected>Select Professor</option>
+        @foreach (var faculty in Model.FacultyList)
+        {
+            <option value="@faculty.FacultyID">@faculty.FacultyFirst @faculty.FacultyLast</option>
+        }
+    </select>
+    <br />
+    <button class="btn btn-primary">Confirm</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Faculty</th>
+            <th>OfficeHoursDays</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Office Location</th>
+            <th>Sign Up</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var SpecificOfficeHours in Model.SpecificOfficeHoursList)
+        {
+            <tr>
+                <td>@SpecificOfficeHours.FacultyFirst @SpecificOfficeHours.FacultyLast</td>
+                <td>@SpecificOfficeHours.OfficeHoursDays</td>
+                <td>@SpecificOfficeHours.OHStartTime</td>
+                <td>@SpecificOfficeHours.OHEndTime</td>
+                <td>@SpecificOfficeHours.OfficeLocation</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <form method="post" asp-page-handler="AddToQueue">
+
+                            <input type="hidden" asp-for="selectedFacultyID" name="facultyID" value="@SpecificOfficeHours.FacultyID" />
+                            <input type="hidden" asp-for="selectedOfficeHoursID" value="@SpecificOfficeHours.OfficeHoursID" />
+                            <button type="submit" class="btn btn-outline-primary btn-purple">Select</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewData.ModelState.IsValid == false)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+

@@ -1,0 +1,309 @@
+﻿using Lab3.Pages.DataClasses;
+using System.Data.SqlClient;
+
+namespace Lab3.Pages.DB
+{
+    public class DBClass
+    {
+        // Connection at the Class Level
+        public static SqlConnection LabDBConnection = new SqlConnection();
+
+        // Connection String
+        private static readonly String? LabDBConnString = "Server=LocalHost;Database=Lab3;Trusted_Connection=True";
+
+        // Connection at the Class Level
+        public static SqlConnection AuthDBConnection = new SqlConnection();
+
+        // Connection String
+        private static readonly String? AuthDBConnString = "Server=LocalHost;Database=AUTH;Trusted_Connection=True";
+
+
+
+        // Reads the data in the faculty table
+        public static SqlDataReader FacultyReader()
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdFacultyRead = new SqlCommand();
+            cmdFacultyRead.Connection = LabDBConnection;
+            cmdFacultyRead.Connection.ConnectionString = LabDBConnString;
+            cmdFacultyRead.CommandText = "SELECT * FROM Faculty";
+
+            cmdFacultyRead.Connection.Open();
+
+            SqlDataReader tempReader = cmdFacultyRead.ExecuteReader();
+
+            return tempReader;
+        }
+
+
+
+
+        public static int InsertStudent(Student s)
+        {
+            string sqlQuery = "INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username) OUTPUT INSERTED.StudentID " +
+                              "VALUES (@StudentFirst, @StudentLast, @StudentEmailAddress, @StudentPhoneNumber, @Username);";
+
+            SqlCommand cmdStudentRead = new SqlCommand();
+            cmdStudentRead.Connection = LabDBConnection;
+            cmdStudentRead.Connection.ConnectionString = LabDBConnString;
+            cmdStudentRead.CommandText = sqlQuery;
+            cmdStudentRead.Parameters.AddWithValue("@StudentFirst", s.StudentFirst);
+            cmdStudentRead.Parameters.AddWithValue("@StudentLast", s.StudentLast);
+            cmdStudentRead.Parameters.AddWithValue("@StudentEmailAddress", s.StudentEmailAddress);
+            cmdStudentRead.Parameters.AddWithValue("@StudentPhoneNumber", s.StudentPhoneNumber);
+            cmdStudentRead.Parameters.AddWithValue("@Username", s.Username);
+
+            cmdStudentRead.Connection.Open();
+            int studentId = (int)cmdStudentRead.ExecuteScalar();
+            cmdStudentRead.Connection.Close();
+
+            return studentId;
+        }
+
+
+        // Adds a new student when signing up for office hours
+        public static int InsertFaculty(Faculty f)
+        {
+            String sqlQuery = "INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username) OUTPUT INSERTED.FacultyID VALUES (@FacultyFirst, @FacultyLast, @FacultyEmailAddress, @FacultyPhoneNumber, @OfficeLocation, @Username)";
+
+            SqlCommand cmdStudentRead = new SqlCommand();
+            cmdStudentRead.Connection = LabDBConnection;
+            cmdStudentRead.Connection.ConnectionString = LabDBConnString;
+            cmdStudentRead.CommandText = sqlQuery;
+
+            cmdStudentRead.Parameters.AddWithValue("@FacultyFirst", f.FacultyFirst);
+            cmdStudentRead.Parameters.AddWithValue("@FacultyLast", f.FacultyLast);
+            cmdStudentRead.Parameters.AddWithValue("@FacultyEmailAddress", f.FacultyEmailAddress);
+            cmdStudentRead.Parameters.AddWithValue("@FacultyPhoneNumber", f.FacultyPhoneNumber);
+            cmdStudentRead.Parameters.AddWithValue("@OfficeLocation", f.OfficeLocation);
+            cmdStudentRead.Parameters.AddWithValue("@Username", f.Username);
+
+            cmdStudentRead.Connection.Open();
+
+            int facultyId = (int)cmdStudentRead.ExecuteScalar();
+
+            cmdStudentRead.Connection.Close();
+
+            return facultyId;
+        }
+
+
+
+
+        // Genereal Query Reader to run and return any SELECT query
+        public static SqlDataReader GeneralReaderQuery(string sqlQuery)
+        {
+
+            SqlCommand cmdGeneralRead = new SqlCommand();
+            cmdGeneralRead.Connection = LabDBConnection;
+            cmdGeneralRead.Connection.ConnectionString = LabDBConnString;
+            cmdGeneralRead.CommandText = sqlQuery;
+            cmdGeneralRead.Connection.Open();
+            SqlDataReader tempReader = cmdGeneralRead.ExecuteReader();
+
+            return tempReader;
+        }
+
+
+        public static bool HashedParameterLogin(string Username, string Password)
+        {
+            string loginQuery =
+                "SELECT Password FROM HashedCredentials WHERE Username = @Username";
+
+            SqlCommand cmdLogin = new SqlCommand();
+            cmdLogin.Connection = AuthDBConnection;
+            cmdLogin.Connection.ConnectionString = AuthDBConnString;
+
+            cmdLogin.CommandText = loginQuery;
+            cmdLogin.Parameters.AddWithValue("@Username", Username);
+
+            cmdLogin.Connection.Open();
+
+            // ExecuteScalar() returns back data type Object
+            // Use a typecast to convert this to an int.
+            // Method returns first column of first row.
+            SqlDataReader hashReader = cmdLogin.ExecuteReader();
+            if (hashReader.Read())
+            {
+                string correctHash = hashReader["Password"].ToString();
+
+                if (PasswordHash.ValidatePassword(Password, correctHash))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static void CreateHashedUser(string Username, string Password)
+        {
+            string loginQuery =
+                "INSERT INTO HashedCredentials (Username,Password) values (@Username, @Password)";
+
+            SqlCommand cmdLogin = new SqlCommand();
+            cmdLogin.Connection = AuthDBConnection;
+            cmdLogin.Connection.ConnectionString = AuthDBConnString;
+
+            cmdLogin.CommandText = loginQuery;
+            cmdLogin.Parameters.AddWithValue("@Username", Username);
+            cmdLogin.Parameters.AddWithValue("@Password", PasswordHash.HashPassword(Password));
+
+            cmdLogin.Connection.Open();
+
+            // ExecuteScalar() returns back data type Object
+            // Use a typecast to convert this to an int.
+            // Method returns first column of first row.
+            cmdLogin.ExecuteNonQuery();
+
+        }
+
+        public static bool StoredProcedureLogin(string Username, string Password)
+        {
+
+            SqlCommand cmdProductRead = new SqlCommand();
+            cmdProductRead.Connection = AuthDBConnection;
+            cmdProductRead.Connection.ConnectionString = AuthDBConnString;
+            cmdProductRead.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdProductRead.Parameters.AddWithValue("@Username", Username);
+            cmdProductRead.Parameters.AddWithValue("@Password", Password);
+            cmdProductRead.CommandText = "sp_Lab3Login";
+            cmdProductRead.Connection.Open();
+            if (((int)cmdProductRead.ExecuteScalar()) > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static SqlDataReader SpecificQueue(String username)
+        {
+            LabDBConnection.Close();
+
+            SqlCommand cmdSpecFacultyRead = new SqlCommand();
+            cmdSpecFacultyRead.Connection = LabDBConnection;
+            cmdSpecFacultyRead.Connection.ConnectionString = LabDBConnString;
+            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username";
+
+            cmdSpecFacultyRead.Parameters.AddWithValue("@Username", username);
+
+            cmdSpecFacultyRead.Connection.Open();
+            SqlDataReader tempReader = cmdSpecFacultyRead.ExecuteReader();
+
+            return tempReader;
+        }
+
+        public static SqlDataReader SpecificOfficeHours(int facultyid)
+        {
+            LabDBConnection.Close();
+
+            SqlCommand cmdSpecFacultyRead = new SqlCommand();
+            cmdSpecFacultyRead.Connection = LabDBConnection;
+            cmdSpecFacultyRead.Connection.ConnectionString = LabDBConnString;
+            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, Faculty.OfficeLocation FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID WHERE Faculty.FacultyID = @FacultyID";
+
+            cmdSpecFacultyRead.Parameters.AddWithValue("@FacultyID", facultyid);
+
+            cmdSpecFacultyRead.Connection.Open();
+            SqlDataReader tempReader = cmdSpecFacultyRead.ExecuteReader();
+
+            return tempReader;
+        }
+
+
+        public static void InsertQueue(Queue q, int officehoursID)
+        {
+            LabDBConnection.Close();
+            using (SqlConnection connection = new SqlConnection(LabDBConnString))
+            {
+                connection.Open();
+
+                string sqlQuery = "INSERT INTO Queue (StudentID, OfficeHoursID) VALUES(@StudentID, @OfficeHoursID);";
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@StudentID", q.StudentID);
+                    command.Parameters.AddWithValue("@OfficeHoursID", officehoursID);
+
+                    command.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+        public static SqlDataReader GetStudentID(String username)
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdIDRead = new SqlCommand();
+            cmdIDRead.Connection = LabDBConnection;
+            cmdIDRead.Connection.ConnectionString = LabDBConnString;
+            cmdIDRead.CommandText = "SELECT StudentID FROM Student WHERE Username = @Username;";
+            cmdIDRead.Parameters.AddWithValue("@Username", username);
+            cmdIDRead.Connection.Open();
+            SqlDataReader tempReader = cmdIDRead.ExecuteReader();
+
+            return tempReader;
+        }
+
+
+        public static SqlDataReader GetStudentInfo(String username)
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdInfoRead = new SqlCommand();
+            cmdInfoRead.Connection = LabDBConnection;
+            cmdInfoRead.Connection.ConnectionString = LabDBConnString;
+            cmdInfoRead.CommandText = "SELECT Student.StudentFirst, Student.StudentLast, Student.StudentEmailAddress, Student.StudentPhoneNumber, Student.Username FROM Student WHERE Student.Username = @Username;";
+            cmdInfoRead.Parameters.AddWithValue("@Username", username);
+            cmdInfoRead.Connection.Open();
+            SqlDataReader tempReader = cmdInfoRead.ExecuteReader();
+
+            return tempReader;
+        }
+
+        public static SqlDataReader AdminQueue()
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdAllQueueReader = new SqlCommand();
+            cmdAllQueueReader.Connection = LabDBConnection;
+            cmdAllQueueReader.Connection.ConnectionString = LabDBConnString;
+            cmdAllQueueReader.CommandText = "SELECT Student.StudentFirst, Student.StudentLast, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.WaitingRoom FROM Queue JOIN Student ON Student.StudentID = Queue.StudentID JOIN OfficeHours ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID;";
+            cmdAllQueueReader.Connection.Open();
+            SqlDataReader tempReader = cmdAllQueueReader.ExecuteReader();
+
+            return tempReader;
+
+        }
+
+
+
+        public static bool StudentQueueExists(int studentID, int officeHoursID)
+        {
+            LabDBConnection.Close();
+
+            using (LabDBConnection)
+            {
+                LabDBConnection.Open();
+
+                string query = "SELECT COUNT(*) FROM Queue WHERE StudentID = @StudentID AND OfficeHoursID = @OfficeHoursID";
+                using (SqlCommand command = new SqlCommand(query, LabDBConnection))
+                {
+                    command.Parameters.AddWithValue("@StudentID", studentID);
+                    command.Parameters.AddWithValue("@OfficeHoursID", officeHoursID);
+
+                    int count = (int)command.ExecuteScalar();
+                    if (count > 0)
+                    {
+                        return true;
+                    }
+                    
+                    return false;
+                   
+                }
+            }
+        }
+
+
+
+    }
+}

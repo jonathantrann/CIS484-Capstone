@@ -1,0 +1,82 @@
+﻿@page
+@model Lab3.Pages.StudentPages.StudentHomeModel
+@{
+}
+<style>
+    body {
+        background-color: #CBB677;
+    }
+
+    .btn-secondary {
+        background-color: #450084;
+        border-color: #450084;
+    }
+
+        .btn-secondary:hover {
+            background-color: #6b2ebe;
+            border-color: #6b2ebe;
+        }
+</style>
+
+@{
+    var username = HttpContext.Session.GetString("Username");
+}
+
+@*Header*@
+<div class="text-left">
+    Riley Hadley and Jack Riley
+</div>
+
+@*Display JMU Logo*@
+<div class="text-center">
+    <h1 class="display-4">Welcome @username !</h1>
+    <br />
+    <img src="~/images/jmu-seal-rgb-purple.png" />
+</div>
+<br />
+<br />
+<div class="text-center">
+    <a class="btn btn-secondary" href="/StudentPages/Profile?username=@username">Profile</a>
+    <a class="btn btn-secondary" href="/StudentPages/SignUp">Sign Up</a>
+    <a class="btn btn-secondary" href="/Logout">Logout</a>
+
+</div>
+<br />
+<div class="text-center">
+    <h1 class="display-6">Currently Signed Up Office Hours</h1>
+</div>
+
+@*Displays the office hours queue*@
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>Days</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Professor</th>
+            <th>Waiting Room</th>
+            <th>Command:</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var queue in Model.SpecificQueueList)
+        {
+            <tr>
+
+                
+                <td>@queue.OfficeHoursDays</td>
+                <td>@queue.OHStartTime</td>
+                <td>@queue.OHEndTime</td>
+                <td>@queue.FacultyFirst @queue.FacultyLast</td>
+                <td>@queue.WaitingRoom</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary btn-purple">Edit</button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,94 @@
+﻿@page
+@using Lab3.Pages.DataClasses;
+@using System.Data.SqlClient;
+@using Lab3.Pages.DB
+@model Lab3.Pages.FacultyPages.QueueManagerModel
+@{
+}
+
+<style>
+    body {
+        background-color: #CBB677;
+    }
+
+    .btn-primary {
+        background-color: #450084;
+        border-color: #450084;
+    }
+
+        .btn-primary:hover {
+            background-color: #6b2ebe;
+            border-color: #6b2ebe;
+        }
+</style>
+@*Header*@
+<div class="text-left">
+    Riley Hadley and Jack Riley
+</div>
+
+
+
+<div class="text-center">
+    <h1 class="display-8">Queue Manager</h1>
+    <br />
+    <a class="btn btn-secondary" href="/FacultyPages/FacultyHome">Faculty Home</a>
+    <a class="btn btn-secondary" href="/FacultyPages/MeetingManager">Meeting Manager</a>
+    <br />
+    <br />
+    <h3 class="display-8">Current Queue</h3>
+</div>
+
+
+
+<br />
+
+@*Shows the current total students in queue*@
+
+@{
+    var counter = Model.SpecificQueueList.Count;
+}
+@string.Format("Total Students in Queue = {0}", counter)
+
+
+@*Displays the office hours queue*@
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>Student</th>
+            <th>Days</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Professor</th>
+            <th>Waiting Room</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var queue in Model.SpecificQueueList)
+        {
+            <tr>
+
+                <td>@queue.StudentFirst @queue.StudentLast</td>
+                <td>@queue.OfficeHoursDays</td>
+                <td>@queue.OHStartTime</td>
+                <td>@queue.OHEndTime</td>
+                <td>@queue.FacultyFirst @queue.FacultyLast</td>
+                <td>@queue.WaitingRoom</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary">Edit</button>
+                        <button type="button" class="btn btn-outline-danger">Delete</button>
+
+
+
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+<br />
+<br />

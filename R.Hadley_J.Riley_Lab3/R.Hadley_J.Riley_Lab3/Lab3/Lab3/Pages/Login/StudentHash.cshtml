@@ -1,0 +1,53 @@
+﻿@page
+@model Lab3.Pages.Login.StudentHashModel
+@{
+}
+<style>
+    body {
+        background-color: #CBB677;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: lightslategrey;
+        border: 2px solid #450084;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px;
+    }
+
+        .form-container input {
+            margin: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+
+        .form-container button {
+            background-color: #450084;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+</style>
+<form asp-page="CreateHashedLogin">
+    <label>Enter the SAME Username as Previous Page:</label>
+    <input asp-for="Username" class="form-control" placeholder="Enter Username" />
+    <br />
+    <label>Enter New User's Password:</label>
+    <input asp-for="Password" class="form-control" type="password" />
+    <br />
+    <input type="submit" class="btn btn-primary" />
+</form>
+@{
+    if (ViewData["UserCreate"] != null)
+    {
+        <p class="text-success">@ViewData["UserCreate"]</p>
+    }
+
+}

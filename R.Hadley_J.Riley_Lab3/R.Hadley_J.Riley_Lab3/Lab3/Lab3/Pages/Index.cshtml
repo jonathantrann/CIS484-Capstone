@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<style>
+    body {
+        background-color: #CBB677;
+    }
+
+    .btn-primary {
+        background-color: #450084;
+        border-color: #450084;
+    }
+
+        .btn-primary:hover {
+            background-color: #6b2ebe;
+            border-color: #6b2ebe;
+        }
+</style>
+
+@*Header*@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8 text-left">
+            Riley Hadley and Jack Riley
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-4">Office Hour Management System</h1>
+            <br>
+            <img src="~/images/jmu-seal-rgb-purple.png" />
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+@*Redirect Buttons*@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center">
+            <a class="btn btn-primary" href="/Login/StudentLogin">Student Login</a>
+            <a class="btn btn-primary" href="/Login/FacultyLogin">Faculty Login</a>
+            @*<a class="btn btn-primary" href="/HTML/HTML HELP">HTML HELP</a>*@
+        </div>
+    </div>
+</div>
