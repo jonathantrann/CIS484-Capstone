@@ -1,0 +1,87 @@
+﻿@page
+@model Lab3.Pages.FacultyPages.Office_Hours_ManagerModel
+@{
+}
+<style>
+    body {
+        background-color: #CBC3E3;
+    }
+
+    .btn-secondary {
+        background-color: #450084;
+        border-color: #450084;
+    }
+
+        .btn-secondary:hover {
+            background-color: #6b2ebe;
+            border-color: #6b2ebe;
+        }
+</style>
+
+@{
+    var username = HttpContext.Session.GetString("Username");
+}
+
+@*Header*@
+<div class="text-left">
+    Riley Hadley and Jack Riley
+</div>
+
+@*Redirect buttons*@
+<div class="text-center">
+    <a class="btn btn-secondary" href="/FacultyPages/MeetingManager">Meeting Manager</a>
+    <a class="btn btn-secondary" href="/FacultyPages/QueueManager">Queue Manager</a>
+    <a class="btn btn-secondary" href="/Index">Logout</a>
+</div>
+<br>
+
+<form asp-page-handler="CreateOfficeHours" method="post">
+    <div class="form-group">
+  <label for="office-hours-days">Office Hour Days:</label>
+  <select class="form-control" id="office-hours-days" name="NewOfficeHours.OfficeHoursDays">
+    <option value="">Select a day</option>
+    <option value="Monday">Monday</option>
+    <option value="Tuesday">Tuesday</option>
+    <option value="Wednesday">Wednesday</option>
+    <option value="Thursday">Thursday</option>
+    <option value="Friday">Friday</option>
+  </select>
+</div>
+    <br />
+    <div class="form-group">
+        <label for="start-time">Start Time:</label>
+        <input type="text" class="form-control" id="OHStartTime" name="NewOfficeHours.OHStartTime" />
+    </div>
+     <br />
+    <div class="form-group">
+        <label for="end-time">End Time:</label>
+        <input type="text" class="form-control" id="OHEndTime" name="NewOfficeHours.OHEndTime" />
+    </div>
+     <br />
+    <div class="form-group">
+        <label for="waiting-room-location">Waiting Room:</label>
+        <input type="text" class="form-control" id="WaitingRoom" name="NewOfficeHours.WaitingRoom"  />
+    </div>
+    <br />
+     <button type="button" onclick="populateFields()">Populate</button>
+    <button type="button" onclick="clearFields()">Clear</button>
+    <button type="submit" class="btn btn-primary">Create Office Hours</button>
+
+     <script>
+    function populateFields() {
+        document.getElementById("OfficeHoursDays").value = "Tuesday";
+        document.getElementById("OHStartTime").value = "9:30 AM";
+        document.getElementById("OHEndTime").value = "11:30 AM";
+        document.getElementById("WaitingRoom").value = "Hartman Hall 3001";
+    }
+    
+    function clearFields() {
+        document.getElementById("OfficeHoursDays").value = "";
+        document.getElementById("OHStartTime").value = "";
+        document.getElementById("OHEndTime").value = "";
+        document.getElementById("WaitingRoom").value = "";
+    }
+</script>
+</form>
+
+       

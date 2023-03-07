@@ -12,7 +12,6 @@ namespace Lab3.Pages.StudentPages
         // public List<Student> StudentList { get; set; }
         [BindProperty] public int SelectedFaculty { get; set; }
         //public List<Queue> QueueList { get; set; }
-        public List<OfficeHours> OHList { get; set; }
         public List<Faculty> FacultyList { get; set; }
         [BindProperty] public int currentStudentID { get; set; }
         [BindProperty] public int selectedOfficeHoursID { get; set; }
@@ -26,7 +25,7 @@ namespace Lab3.Pages.StudentPages
 
         public SignUpModel()
         {
-            OHList = new List<OfficeHours>();
+            
             FacultyList = new List<Faculty>();
             SpecificOfficeHoursList = new List<SpecificOfficeHours>();
             NewQueue = new Queue();
@@ -101,7 +100,7 @@ namespace Lab3.Pages.StudentPages
                 while (studentIDReader.Read())
                 {
                     currentStudentID = Int32.Parse(studentIDReader["StudentID"].ToString());
-                }
+                }   
                 studentIDReader.Close();
 
                 if (DBClass.StudentQueueExists(currentStudentID, selectedOfficeHoursID) == true)

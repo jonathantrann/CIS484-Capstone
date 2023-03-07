@@ -201,7 +201,7 @@ namespace Lab3.Pages.DB
             SqlCommand cmdSpecFacultyRead = new SqlCommand();
             cmdSpecFacultyRead.Connection = LabDBConnection;
             cmdSpecFacultyRead.Connection.ConnectionString = LabDBConnString;
-            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, Faculty.OfficeLocation FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID WHERE Faculty.FacultyID = @FacultyID";
+            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, Faculty.OfficeLocation, OfficeHours.WaitingRoom FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID WHERE Faculty.FacultyID = @FacultyID";
 
             cmdSpecFacultyRead.Parameters.AddWithValue("@FacultyID", facultyid);
 
@@ -303,7 +303,75 @@ namespace Lab3.Pages.DB
             }
         }
 
+        public static SqlDataReader OfficeHoursReader(int facultyid, int officehoursid)
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdSpecOfficeHoursRead = new SqlCommand();
+            cmdSpecOfficeHoursRead.Connection = LabDBConnection;
+            cmdSpecOfficeHoursRead.Connection.ConnectionString = LabDBConnString;
+            cmdSpecOfficeHoursRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, " +
+                "OfficeHours.OHStartTime, OfficeHours.OHEndTime, Faculty.OfficeLocation FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID " +
+                "WHERE Faculty.FacultyID = @FacultyID " +
+                "AND OfficeHours.OfficeHoursID = @OfficeHoursID;";
+            cmdSpecOfficeHoursRead.Parameters.AddWithValue("@FacultyID", facultyid);
+            cmdSpecOfficeHoursRead.Parameters.AddWithValue("@OfficeHoursID", officehoursid);
+            cmdSpecOfficeHoursRead.Connection.Open();
+            SqlDataReader tempReader = cmdSpecOfficeHoursRead.ExecuteReader();
+            return tempReader;
+        }
+
+        public static SqlDataReader GetFacultyID(String username)
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdIDRead = new SqlCommand();
+            cmdIDRead.Connection = LabDBConnection;
+            cmdIDRead.Connection.ConnectionString = LabDBConnString;
+            cmdIDRead.CommandText = "SELECT FacultyID FROM Faculty WHERE Username = @Username;";
+            cmdIDRead.Parameters.AddWithValue("@Username", username);
+            cmdIDRead.Connection.Open();
+            SqlDataReader tempReader = cmdIDRead.ExecuteReader();
+
+            return tempReader;
+        }
 
 
+        public static SqlDataReader GetFaultyInfo(String username)
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdInfoRead = new SqlCommand();
+            cmdInfoRead.Connection = LabDBConnection;
+            cmdInfoRead.Connection.ConnectionString = LabDBConnString;
+            cmdInfoRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, Faculty.FacultyEmailAddress, Faculty.FacultyPhoneNumber, Faculty.Username FROM Faculty WHERE Faculty.Username = @Username;";
+            cmdInfoRead.Parameters.AddWithValue("@Username", username);
+            cmdInfoRead.Connection.Open();
+            SqlDataReader tempReader = cmdInfoRead.ExecuteReader();
+
+            return tempReader;
+        }
+
+        public static void InsertOfficeHours(OfficeHours o, int facultyid)
+        {
+            LabDBConnection.Close();
+            using (SqlConnection connection = new SqlConnection(LabDBConnString))
+            {
+                connection.Open();
+
+                string sqlQuery = "INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, FacultyID) VALUES(@OfficeHoursDays, @OHStartTime, @OHEndTime, @WaitingRoom, @FacultyID);";
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                {
+                    
+                    command.Parameters.AddWithValue("@OfficeHoursDays", o.OfficeHoursDays);
+                    command.Parameters.AddWithValue("@OHStartTime", o.OHStartTime);
+                    command.Parameters.AddWithValue("@OHEndTime", o.OHEndTime);
+                    command.Parameters.AddWithValue("@WaitingRoom", o.WaitingRoom);
+                    command.Parameters.AddWithValue("@FacultyID", facultyid);
+
+                    command.ExecuteNonQuery();
+
+                }
+            }
+        }
+        
     }
 }

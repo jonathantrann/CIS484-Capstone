@@ -8,34 +8,79 @@ namespace Lab3.Pages.FacultyPages
 {
     public class FacultyHomeModel : PageModel
     {
+        
         // Create new list for faculty
         public List<Faculty> FacultyList { get; set; }
 
+        public List<SpecificOfficeHours> SpecificOfficeHoursList;
+        public List<OfficeHours> OfficeHoursList;
+
+        [BindProperty] public int selectedOfficeHoursID { get; set; }
+        [BindProperty] public int currentFacultyID { get; set; }
+        public Queue NewQueue { get; set; }
         public FacultyHomeModel()
         {
             FacultyList = new List<Faculty>();
+            OfficeHoursList = new List<OfficeHours>();
+            NewQueue = new Queue();
         }
 
 
         public void OnGet()
         {
-            // Reads in the data from the faculty table
-            SqlDataReader facultyReader = DBClass.FacultyReader();
+            ModelState.Clear();
+            string username = HttpContext.Session.GetString("Username");
 
-            while (facultyReader.Read())
+            SqlDataReader facultyIDReader = DBClass.GetFacultyID(username);
+            while(facultyIDReader.Read())
             {
-                FacultyList.Add(new Faculty
+                currentFacultyID = Int32.Parse(facultyIDReader["FacultyID"].ToString());
+            }
+            facultyIDReader.Close();
+
+            SqlDataReader OfficeHoursReader = DBClass.SpecificOfficeHours(currentFacultyID);
+
+            while (OfficeHoursReader.Read())
+            {
+                OfficeHoursList.Add(new OfficeHours
                 {
-                    FacultyID = Int32.Parse(facultyReader["FacultyID"].ToString()),
-                    FacultyFirst = facultyReader["FacultyFirst"].ToString(),
-                    FacultyLast = facultyReader["FacultyLast"].ToString(),
-                    FacultyEmailAddress = facultyReader["FacultyEmailAddress"].ToString(),
-                    FacultyPhoneNumber = facultyReader["FacultyPhoneNumber"].ToString(),
-                    OfficeLocation = facultyReader["OfficeLocation"].ToString(),
+                    OfficeHoursID = Int32.Parse(OfficeHoursReader["OfficeHoursID"].ToString()),
+                    OfficeHoursDays = OfficeHoursReader["OfficeHoursDays"].ToString(),
+                    OHStartTime = OfficeHoursReader["OHStartTime"].ToString(),
+                    OHEndTime = OfficeHoursReader["OHEndTime"].ToString(),
+                    WaitingRoom = OfficeHoursReader["WaitingRoom"].ToString(),
 
                 });
             }
-            DBClass.LabDBConnection.Close();
+        }
+
+        public IActionResult OnPostSelectOfficeHours()
+        {
+            OfficeHoursList.Clear();
+
+            string username = HttpContext.Session.GetString("Username");
+
+            SqlDataReader facultyIDReader = DBClass.GetFacultyID(username);
+            while (facultyIDReader.Read())
+            {
+                currentFacultyID = Int32.Parse(facultyIDReader["FacultyID"].ToString());
+            }
+            facultyIDReader.Close();
+
+            SqlDataReader OfficeHoursReader = DBClass.OfficeHoursReader(currentFacultyID, selectedOfficeHoursID);
+            while(OfficeHoursReader.Read())
+            {
+                OfficeHoursList.Add(new OfficeHours
+                {
+                    OfficeHoursID = Int32.Parse(OfficeHoursReader["OfficeHoursID"].ToString()),
+                    OfficeHoursDays = OfficeHoursReader["OfficeHoursDays"].ToString(),
+                    OHStartTime = OfficeHoursReader["OHStartTime"].ToString(),
+                    OHEndTime = OfficeHoursReader["OHEndTime"].ToString(),
+                    WaitingRoom = OfficeHoursReader["WaitingRoom"].ToString(),
+                    FacultyID = Int32.Parse(OfficeHoursReader["FacultyID"].ToString())
+                });
+            }
+            return Page();
         }
     }
 

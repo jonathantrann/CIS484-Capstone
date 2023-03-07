@@ -5,7 +5,7 @@
 
 <style>
     body {
-        background-color: #CBB677;
+        background-color: #CBC3E3;
     }
 
     .btn-secondary {
@@ -42,37 +42,34 @@
 <div class="text-center">
     <a class="btn btn-secondary" href="/FacultyPages/MeetingManager">Meeting Manager</a>
     <a class="btn btn-secondary" href="/FacultyPages/QueueManager">Queue Manager</a>
+    <a class="btn btn-secondary" href="/FacultyPages/OfficeHoursManager">Office Hours Manager</a>
     <a class="btn btn-secondary" href="/Index">Logout</a>
 </div>
 <br>
 
 @*Header for faculty list*@
 <div class="text-center">
-    <h1 class="display-6">Faculty List</h1>
+    <h1 class="display-6">Scheduled Office Hours</h1>
 </div>
 
-@*Table of the current faculty*@
+
 <table class="table">
     <thead>
         <tr>
-            <th>FacultyID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email Address</th>
-            <th>Phone Number</th>
-            <th>Office Location</th>
+            <th>Days</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Waiting Room</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var faculty in Model.FacultyList)
+        @foreach (var officeHours in Model.OfficeHoursList)
         {
             <tr>
-                <td>@faculty.FacultyID</td>
-                <td>@faculty.FacultyFirst</td>
-                <td>@faculty.FacultyLast</td>
-                <td>@faculty.FacultyEmailAddress</td>
-                <td>@faculty.FacultyPhoneNumber</td>
-                <td>@faculty.OfficeLocation</td>
+                <td>@officeHours.OfficeHoursDays</td>
+                <td>@officeHours.OHStartTime</td>
+                <td>@officeHours.OHEndTime</td>
+                <td>@officeHours.WaitingRoom</td>
             </tr>
         }
 
