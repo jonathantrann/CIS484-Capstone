@@ -33,16 +33,12 @@
     <br />
 </div>
 
-@*Search Bar*@
-<form method="get" asp-page-handler="Search">
-    <input type="text" name="query" placeholder="Search for faculty...">
-    <button type="submit">Search</button>
-</form>
+
 
 
 @*Dropdown list that outputs office hours availability lists*@
 
-<form asp-page-handler="SingleSelect" method="post">
+@*<form asp-page-handler="SingleSelect" method="post">
     <select asp-for="SelectedFaculty" class="form-select">
         <option selected>Select Professor</option>
         @foreach (var faculty in Model.FacultyList)
@@ -52,7 +48,36 @@
     </select>
     <br />
     <button class="btn btn-primary">Confirm</button>
+</form>*@
+
+
+@*<form asp-page-handler="SingleSelect" method="post">
+    <div class="input-group mb-3">
+        <input type="text" asp-for="SelectedFaculty" class="form-control" placeholder="Search for a professor...">
+        @foreach (var faculty in Model.FacultyList)
+        {
+            <option value="@faculty.FacultyID">@faculty.FacultyFirst @faculty.FacultyLast</option>
+        }
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>*@
+
+<form asp-page-handler="SingleSelect" method="post">
+    <label for="SelectedFaculty-search">Search for Faculty</label>
+    <input asp-for="SelectedFaculty" type="text" id="SelectedFaculty-search" list="FacultyList" placeholder="Type to Search for a Faculty Member">
+    <datalist id="FacultyList">
+        <option selected>Select Professor</option>
+        @{
+            foreach (var faculty in Model.FacultyList)
+            {
+                <option value="@faculty.FacultyID">@faculty.FacultyFirst @faculty.FacultyLast</option>              
+            }
+        }
+    </datalist>
+    </input>
+    <button class="btn btn-primary" type="submit">Search</button>
 </form>
+
 
 <table class="table">
     <thead>

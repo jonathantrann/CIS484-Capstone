@@ -34,6 +34,8 @@ namespace Lab3.Pages.StudentPages
 
         public void OnGet()
         {
+
+
             SqlDataReader FacultyReader = DBClass.FacultyReader();
 
             while (FacultyReader.Read())

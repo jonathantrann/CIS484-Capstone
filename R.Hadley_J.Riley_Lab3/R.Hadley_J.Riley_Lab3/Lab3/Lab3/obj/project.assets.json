@@ -470,19 +470,19 @@
     ]
   },
   "packageFolders": {
-    "D:\\Users\\jhadley\\.nuget\\packages\\": {}
+    "C:\\Users\\olafs\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\jhadley\\Source\\Repos\\CIS484-Capstone\\R.Hadley_J.Riley_Lab3\\R.Hadley_J.Riley_Lab3\\Lab3\\Lab3\\Lab3.csproj",
+      "projectUniqueName": "C:\\Users\\olafs\\OneDrive\\Documents\\LAST SEMESTER\\CIS 484\\GitHub\\Project1\\R.Hadley_J.Riley_Lab3\\R.Hadley_J.Riley_Lab3\\Lab3\\Lab3\\Lab3.csproj",
       "projectName": "Lab3",
-      "projectPath": "D:\\Users\\jhadley\\Source\\Repos\\CIS484-Capstone\\R.Hadley_J.Riley_Lab3\\R.Hadley_J.Riley_Lab3\\Lab3\\Lab3\\Lab3.csproj",
-      "packagesPath": "D:\\Users\\jhadley\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\jhadley\\Source\\Repos\\CIS484-Capstone\\R.Hadley_J.Riley_Lab3\\R.Hadley_J.Riley_Lab3\\Lab3\\Lab3\\obj\\",
+      "projectPath": "C:\\Users\\olafs\\OneDrive\\Documents\\LAST SEMESTER\\CIS 484\\GitHub\\Project1\\R.Hadley_J.Riley_Lab3\\R.Hadley_J.Riley_Lab3\\Lab3\\Lab3\\Lab3.csproj",
+      "packagesPath": "C:\\Users\\olafs\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\olafs\\OneDrive\\Documents\\LAST SEMESTER\\CIS 484\\GitHub\\Project1\\R.Hadley_J.Riley_Lab3\\R.Hadley_J.Riley_Lab3\\Lab3\\Lab3\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "D:\\Users\\jhadley\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\olafs\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -532,7 +532,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
