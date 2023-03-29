@@ -34,9 +34,6 @@ namespace Lab3.Pages.Login
                 return Page();
 
             }
-
-
-
         }
     }
 }
