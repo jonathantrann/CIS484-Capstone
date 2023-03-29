@@ -1,5 +1,6 @@
 ﻿using Lab3.Pages.DataClasses;
 using System.Data.SqlClient;
+using System;
 
 namespace Lab3.Pages.DB
 {
@@ -35,13 +36,27 @@ namespace Lab3.Pages.DB
             return tempReader;
         }
 
+        public static SqlDataReader StudentReader()
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdStudentRead = new SqlCommand();
+            cmdStudentRead.Connection = LabDBConnection;
+            cmdStudentRead.Connection.ConnectionString = LabDBConnString;
+            cmdStudentRead.CommandText = "SELECT * FROM Student";
+
+            cmdStudentRead.Connection.Open();
+
+            SqlDataReader tempReader = cmdStudentRead.ExecuteReader();
+
+            return tempReader;
+        }
 
 
 
         public static int InsertStudent(Student s)
         {
-            string sqlQuery = "INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username) OUTPUT INSERTED.StudentID " +
-                              "VALUES (@StudentFirst, @StudentLast, @StudentEmailAddress, @StudentPhoneNumber, @Username);";
+            string sqlQuery = "INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, type) OUTPUT INSERTED.StudentID " +
+                              "VALUES (@StudentFirst, @StudentLast, @StudentEmailAddress, @StudentPhoneNumber, @Username, @type);";
 
             SqlCommand cmdStudentRead = new SqlCommand();
             cmdStudentRead.Connection = LabDBConnection;
@@ -52,6 +67,7 @@ namespace Lab3.Pages.DB
             cmdStudentRead.Parameters.AddWithValue("@StudentEmailAddress", s.StudentEmailAddress);
             cmdStudentRead.Parameters.AddWithValue("@StudentPhoneNumber", s.StudentPhoneNumber);
             cmdStudentRead.Parameters.AddWithValue("@Username", s.Username);
+            cmdStudentRead.Parameters.AddWithValue("@Type", s.type);
 
             cmdStudentRead.Connection.Open();
             int studentId = (int)cmdStudentRead.ExecuteScalar();
@@ -60,11 +76,64 @@ namespace Lab3.Pages.DB
             return studentId;
         }
 
+        public static bool IsStudent(string Username)
+        {
+
+                string typeQuery = "SELECT type FROM Student WHERE Username = @Username";
+
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = LabDBConnection;
+            cmd.Connection.ConnectionString = LabDBConnString;
+
+            cmd.CommandText = typeQuery;
+            cmd.Parameters.AddWithValue("@Username", Username);
+
+            cmd.Connection.Open();
+            object result = cmd.ExecuteScalar();
+
+            if(result != null && result.ToString() == "S")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+                
+        }
+
+        public static bool IsFaculty(string Username)
+        {
+
+            string typeQuery = "SELECT type FROM Faculty WHERE Username = @Username";
+
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = LabDBConnection;
+            cmd.Connection.ConnectionString = LabDBConnString;
+
+            cmd.CommandText = typeQuery;
+            cmd.Parameters.AddWithValue("@Username", Username);
+
+            cmd.Connection.Open();
+            object result = cmd.ExecuteScalar();
+
+            if (result != null && result.ToString() == "I")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
 
         // Adds a new student when signing up for office hours
         public static int InsertFaculty(Faculty f)
         {
-            String sqlQuery = "INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username) OUTPUT INSERTED.FacultyID VALUES (@FacultyFirst, @FacultyLast, @FacultyEmailAddress, @FacultyPhoneNumber, @OfficeLocation, @Username)";
+            String sqlQuery = "INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) OUTPUT INSERTED.FacultyID VALUES (@FacultyFirst, @FacultyLast, @FacultyEmailAddress, @FacultyPhoneNumber, @OfficeLocation, @Username, @type)";
 
             SqlCommand cmdStudentRead = new SqlCommand();
             cmdStudentRead.Connection = LabDBConnection;
@@ -77,6 +146,7 @@ namespace Lab3.Pages.DB
             cmdStudentRead.Parameters.AddWithValue("@FacultyPhoneNumber", f.FacultyPhoneNumber);
             cmdStudentRead.Parameters.AddWithValue("@OfficeLocation", f.OfficeLocation);
             cmdStudentRead.Parameters.AddWithValue("@Username", f.Username);
+            cmdStudentRead.Parameters.AddWithValue("@Type", f.type);
 
             cmdStudentRead.Connection.Open();
 

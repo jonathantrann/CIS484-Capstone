@@ -15,5 +15,6 @@
         public String? OfficeLocation { get; set; }
 
         public String? Username { get; set; }
+        public String? type { get; set; }
     }
 }

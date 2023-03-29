@@ -19,11 +19,22 @@ namespace Lab3.Pages.Login
         {
             if (DBClass.HashedParameterLogin(Username, Password))
             {
-                HttpContext.Session.SetString("Username", Username);
-                ViewData["LoginMessage"] = "Login Successful!";
-                DBClass.AuthDBConnection.Close();
 
-                return RedirectToPage("/StudentPages/StudentHome");
+                if (DBClass.IsStudent(Username) == true)
+                {
+                    HttpContext.Session.SetString("Username", Username);
+                    ViewData["LoginMessage"] = "Login Successful!";
+                    DBClass.AuthDBConnection.Close();
+
+                    return RedirectToPage("/StudentPages/StudentHome");
+                }
+                else
+                {
+                    ViewData["LoginMessage"] = "You are not authorized to access this page";
+                    DBClass.AuthDBConnection.Close();
+
+                    return Page();
+                }
 
             }
             else
