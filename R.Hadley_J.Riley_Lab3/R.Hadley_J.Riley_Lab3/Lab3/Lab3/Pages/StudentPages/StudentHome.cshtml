@@ -24,7 +24,6 @@
 
 @*Header*@
 <div class="text-left">
-    Riley Hadley and Jack Riley
 </div>
 
 @*Display JMU Logo*@
@@ -72,9 +71,13 @@
                 <td>@queue.FacultyFirst @queue.FacultyLast</td>
                 <td>@queue.WaitingRoom</td>
                 <td>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-purple">Edit</button>
-                    </div>
+                    <form method="post" asp-page-handler="QueueRowsByUsername">
+                        <input type="hidden" name="username" value="@queue.OHStartTime" />
+                        <input type="hidden" name="username" value="@queue.OHEndTime" />
+                        <input type="hidden" name="username" value="@queue.FacultyLast" />
+                        <button type="submit" name="command" value="delete" class="btn btn-danger">Cancel</button>
+                    </form>
+
                 </td>
             </tr>
         }

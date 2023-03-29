@@ -18,6 +18,41 @@ namespace Lab3.Pages.DB
         // Connection String
         private static readonly String? AuthDBConnString = "Server=LocalHost;Database=AUTH;Trusted_Connection=True";
 
+        public static SqlDataReader SpecificFaculty(string facultyName)
+        {
+            LabDBConnection.Close();
+
+            SqlCommand cmdSpecFacultyRead = new SqlCommand();
+            cmdSpecFacultyRead.Connection = LabDBConnection;
+            cmdSpecFacultyRead.Connection.ConnectionString = LabDBConnString;
+            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, Faculty.OfficeLocation, OfficeHours.WaitingRoom FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID WHERE Faculty.FacultyFirst LIKE '%' + @FacultyName + '%' OR Faculty.FacultyLast LIKE '%' + @FacultyName + '%' OR Faculty.FacultyFirst + ' ' + Faculty.FacultyLast LIKE '%' + @FacultyName + '%'";
+
+            cmdSpecFacultyRead.Parameters.AddWithValue("@FacultyName", facultyName);
+
+            cmdSpecFacultyRead.Connection.Open();
+            SqlDataReader tempReader = cmdSpecFacultyRead.ExecuteReader();
+
+            return tempReader;
+        }
+
+
+        public static void DeleteQueueRowsByUsername(string username)
+        {
+            using (SqlConnection connection = new SqlConnection(LabDBConnString))
+            using (SqlCommand command = new SqlCommand("DELETE FROM Queue " +
+            "WHERE OfficeHoursID IN ( " +
+            "SELECT OfficeHoursID FROM OfficeHours " +
+            "JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID " +
+            "JOIN Student ON Queue.StudentID = Student.StudentID " +
+            "WHERE Student.Username = @username);", connection))
+            {
+                command.Parameters.AddWithValue("@Username", username);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
+        }
+
 
 
         // Reads the data in the faculty table

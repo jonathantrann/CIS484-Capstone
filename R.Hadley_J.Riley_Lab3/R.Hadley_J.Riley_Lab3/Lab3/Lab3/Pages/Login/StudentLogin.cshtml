@@ -25,10 +25,11 @@
         <h1 class="display-6">Student Login</h1>
     </div>
     <form asp-page="StudentLogin">
-        <input asp-for="Username" class="form-control" placeholder="Enter Username" />
+        <label>Enter Username:</label>
+        <input asp-for="Username" class="form-control"/>
         <br />
         <label>Enter Password:</label>
-        <input asp-for="Password" class="form-control" type="password" />
+        <input asp-for="Password" class="form-control" type="password"/>
         <br />
         <input type="submit" class="btn btn-primary" />
     </form>

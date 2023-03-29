@@ -64,13 +64,13 @@
 
 <form asp-page-handler="SingleSelect" method="post">
     <label for="SelectedFaculty-search">Search for Faculty</label>
-    <input asp-for="SelectedFaculty" type="text" id="SelectedFaculty-search" list="FacultyList" placeholder="Type to Search for a Faculty Member">
+    <input asp-for="SearchedFaculty" type="text" id="SelectedFaculty-search" list="FacultyList" placeholder="Type to Search for a Faculty Member">
     <datalist id="FacultyList">
-        <option selected>Select Professor</option>
+        @*<option selected>Select Professor</option>*@
         @{
             foreach (var faculty in Model.FacultyList)
             {
-                <option value="@faculty.FacultyID">@faculty.FacultyFirst @faculty.FacultyLast</option>              
+                <option value="@faculty.FacultyFirst @faculty.FacultyLast">@faculty.FacultyFirst @faculty.FacultyLast</option>              
             }
         }
     </datalist>

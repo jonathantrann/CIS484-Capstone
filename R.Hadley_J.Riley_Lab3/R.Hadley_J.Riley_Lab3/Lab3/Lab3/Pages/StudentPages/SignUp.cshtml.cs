@@ -17,6 +17,7 @@ namespace Lab3.Pages.StudentPages
         [BindProperty] public int selectedOfficeHoursID { get; set; }
 
         [BindProperty] public int selectedFacultyID { get; set; }
+        [BindProperty] public string SearchedFaculty { get; set; }
 
         public Queue NewQueue { get; set; }
 
@@ -55,7 +56,7 @@ namespace Lab3.Pages.StudentPages
         public IActionResult OnPostSingleSelect()
         {
             SpecificOfficeHoursList.Clear();
-            SqlDataReader SpecificOfficeHoursReader = DBClass.SpecificOfficeHours(SelectedFaculty);
+            SqlDataReader SpecificOfficeHoursReader = DBClass.SpecificFaculty(SearchedFaculty);
 
             while (SpecificOfficeHoursReader.Read())
             {
