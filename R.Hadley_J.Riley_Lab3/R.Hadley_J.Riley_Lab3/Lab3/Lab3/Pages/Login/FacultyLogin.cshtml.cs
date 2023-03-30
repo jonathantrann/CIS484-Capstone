@@ -26,7 +26,7 @@ namespace Lab3.Pages.Login
                     ViewData["LoginMessage"] = "Login Successful!";
                     DBClass.AuthDBConnection.Close();
 
-                    return RedirectToPage("/StudentPages/StudentHome");
+                    return RedirectToPage("/FacultyPages/FacultyHome");
                 }
                 else
                 {

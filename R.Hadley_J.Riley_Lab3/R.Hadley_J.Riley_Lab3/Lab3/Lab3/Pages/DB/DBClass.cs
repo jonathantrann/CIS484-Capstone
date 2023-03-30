@@ -127,7 +127,9 @@ namespace Lab3.Pages.DB
             cmd.Connection.Open();
             object result = cmd.ExecuteScalar();
 
-            if(result != null && result.ToString() == "S")
+            cmd.Connection.Close();
+
+            if (result != null && result.ToString() == "S")
             {
                 return true;
             }
@@ -153,6 +155,8 @@ namespace Lab3.Pages.DB
 
             cmd.Connection.Open();
             object result = cmd.ExecuteScalar();
+
+            cmd.Connection.Close();
 
             if (result != null && result.ToString() == "I")
             {
