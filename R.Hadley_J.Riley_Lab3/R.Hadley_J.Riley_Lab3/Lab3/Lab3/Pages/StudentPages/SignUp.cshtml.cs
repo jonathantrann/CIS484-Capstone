@@ -19,6 +19,9 @@ namespace Lab3.Pages.StudentPages
         [BindProperty] public int selectedFacultyID { get; set; }
         [BindProperty] public string SearchedFaculty { get; set; }
 
+        [BindProperty] public int QueuePosition { get; set; }
+        [BindProperty] public string Purpose { get; set; }
+
         public Queue NewQueue { get; set; }
 
 
@@ -30,7 +33,6 @@ namespace Lab3.Pages.StudentPages
             FacultyList = new List<Faculty>();
             SpecificOfficeHoursList = new List<SpecificOfficeHours>();
             NewQueue = new Queue();
-
         }
 
         public void OnGet()
@@ -69,6 +71,8 @@ namespace Lab3.Pages.StudentPages
                     OHStartTime = SpecificOfficeHoursReader["OHStartTime"].ToString(),
                     OHEndTime = SpecificOfficeHoursReader["OHEndTime"].ToString(),
                     OfficeLocation = SpecificOfficeHoursReader["OfficeLocation"].ToString()
+                    
+
                 });
             }
 
@@ -117,6 +121,8 @@ namespace Lab3.Pages.StudentPages
                 // Add student to queue
                 NewQueue.StudentID = currentStudentID;
                 NewQueue.OfficeHoursID = selectedOfficeHoursID;
+                NewQueue.MeetingPurpose = Purpose;
+                NewQueue.QueuePosition = null;
                 DBClass.InsertQueue(NewQueue, selectedOfficeHoursID);
 
 

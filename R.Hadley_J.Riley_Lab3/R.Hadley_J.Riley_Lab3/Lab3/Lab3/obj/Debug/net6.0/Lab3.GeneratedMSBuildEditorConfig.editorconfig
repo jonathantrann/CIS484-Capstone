@@ -9,93 +9,93 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Lab3
 build_property.RootNamespace = Lab3
-build_property.ProjectDir = C:\Users\kyles\Source\Repos\CIS484-Capstone3\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\
+build_property.ProjectDir = D:\Users\jhadley\Source\Repos\CIS484-Capstone 3-30-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\kyles\Source\Repos\CIS484-Capstone3\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3
+build_property.MSBuildProjectDirectory = D:\Users\jhadley\Source\Repos\CIS484-Capstone 3-30-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Error.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/FacultyPages/FacultyHome.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/FacultyPages/FacultyHome.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmFjdWx0eVBhZ2VzXEZhY3VsdHlIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/FacultyPages/OfficeHoursManager.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/FacultyPages/OfficeHoursManager.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmFjdWx0eVBhZ2VzXE9mZmljZUhvdXJzTWFuYWdlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/FacultyPages/QueueManager.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/FacultyPages/QueueManager.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmFjdWx0eVBhZ2VzXFF1ZXVlTWFuYWdlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/HTML/HTML HELP.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/HTML/HTML HELP.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSFRNTFxIVE1MIEhFTFAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Index.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/CreateFaculty.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/CreateFaculty.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cQ3JlYXRlRmFjdWx0eS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/CreateStudent.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/CreateStudent.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cQ3JlYXRlU3R1ZGVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/FacultyHash.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/FacultyHash.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cRmFjdWx0eUhhc2guY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/FacultyLogin.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/FacultyLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cRmFjdWx0eUxvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/StudentHash.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/StudentHash.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cU3R1ZGVudEhhc2guY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/StudentLogin.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Login/StudentLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cU3R1ZGVudExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Logout.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Privacy.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/StudentPages/Profile.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/StudentPages/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFBhZ2VzXFByb2ZpbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/StudentPages/SignUp.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/StudentPages/SignUp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFBhZ2VzXFNpZ25VcC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/StudentPages/StudentHome.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/StudentPages/StudentHome.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFBhZ2VzXFN0dWRlbnRIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/_ViewImports.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/_ViewStart.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kyles/Source/Repos/CIS484-Capstone3/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Shared/_Layout.cshtml]
+[D:/Users/jhadley/Source/Repos/CIS484-Capstone 3-30-23/R.Hadley_J.Riley_Lab3/R.Hadley_J.Riley_Lab3/Lab3/Lab3/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-waoeqbind6

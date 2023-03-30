@@ -8,61 +8,176 @@
 }
 
 
-<style>
-    body {
-        background-color: #CBC3E3;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Sign Up</title>
 
-    .btn-primary {
-        background-color: #450084;
-        border-color: #450084;
-    }
-
-        .btn-primary:hover {
-            background-color: #6b2ebe;
-            border-color: #6b2ebe;
+    <!-- Bootstrap v5.1.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@1,300&family=Cinzel:wght@400;700&family=Nanum+Gothic&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
         }
-</style>
+
+        body {
+            margin: 0;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 3px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .containerpage {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+        }
+
+        .title {
+            grid-column: 1/13;
+            text-align: center;
+            padding: 50px;
+            font-size: 50px;
+        }
+
+        .home {
+            grid-column: 4/7;
+            text-align: center;
+            /* padding-right: 10px; */
+        }
+
+        .profile {
+            grid-column: 7/9;
+            text-align: left;
+            padding-left: 50px;
+        }
+
+        .search {
+            grid-column: 2/5;
+            /* text-align: left; */
+            /* padding: 50px; */
+        }
+
+        .dropdown {
+            grid-column: 2/12;
+            text-align: center;
+        }
+
+        .confirm {
+            grid-column: 4/6;
+        }
+
+        .faculty {
+            grid-column: 1/3;
+            text-align: left;
+        }
+
+        .day {
+            grid-column: 3/5;
+            text-align: left;
+        }
+
+        .start {
+            grid-column: 5/7;
+            text-align: center;
+        }
+
+        .end {
+            grid-column: 7/9;
+            text-align: center;
+        }
+
+        .room {
+            grid-column: 9/11;
+            text-align: center;
+        }
+
+        .signup {
+            grid-column: 11/13;
+            text-align: right;
+        }
+
+        .form-inline {
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #220d59;
+            border: #220d59;
+            width: 230px;
+            font-size: 21px;
+        }
+
+            .btn-primary:hover {
+                background-color: #4219a9;
+            }
+
+        .btn-outline-success {
+            background-color: #220d59;
+            border: #220d59;
+            width: 130px;
+            font-size: 17px;
+            color: #fff;
+        }
+
+            .btn-outline-success:hover {
+                background-color: #4219a9;
+            }
+
+        a:link {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #fff;
+        }
+
+        a:hover {
+            color: #fff;
+            text-decoration-style: double;
+        }
+    </style>
+</head>
 
 @*Redirect buttons*@
 <div class="text-center">
     <h1 class="display-8">Sign Up</h1>
     <br />
-    <a class="btn btn-secondary" href="/StudentPages/StudentHome">Student Home</a>
-    <a class="btn btn-secondary" href="/StudentPages/Profile">Profile</a>
+    <a class="btn btn-primary" href="/StudentPages/StudentHome">Student Home</a>
+    <a class="btn btn-primary" href="/StudentPages/Profile">Profile</a>
+    <br />
+    <br />
+    <br />
     <br />
 </div>
 
-
-
-
-@*Dropdown list that outputs office hours availability lists*@
-
-@*<form asp-page-handler="SingleSelect" method="post">
-    <select asp-for="SelectedFaculty" class="form-select">
-        <option selected>Select Professor</option>
-        @foreach (var faculty in Model.FacultyList)
-        {
-            <option value="@faculty.FacultyID">@faculty.FacultyFirst @faculty.FacultyLast</option>
-        }
-    </select>
-    <br />
-    <button class="btn btn-primary">Confirm</button>
-</form>*@
-
-
-@*<form asp-page-handler="SingleSelect" method="post">
-    <div class="input-group mb-3">
-        <input type="text" asp-for="SelectedFaculty" class="form-control" placeholder="Search for a professor...">
-        @foreach (var faculty in Model.FacultyList)
-        {
-            <option value="@faculty.FacultyID">@faculty.FacultyFirst @faculty.FacultyLast</option>
-        }
-        <button class="btn btn-primary" type="submit">Search</button>
-    </div>
-</form>*@
+@*<form asp-page-handler="AddToQueue" method="post">*@
+<select id="meeting-purpose" name="Purpose" class="form-select">
+    <option value="" disabled selected>Meeting Purpose</option>
+    <option value="Exam Review">Exam Review</option>
+    <option value="Assignment Review">Assignment Review</option>
+    <option value="General Advising">General Advising</option>
+    <option value="Personal Reasons">Personal Reasons</option>
+    <option value="ODS Accomodations">ODS Accomodations</option>
+</select>
+@*</form>*@
 
 <form asp-page-handler="SingleSelect" method="post">
+
+    <br />
+
     <label for="SelectedFaculty-search">Search for Faculty</label>
     <input asp-for="SearchedFaculty" type="text" id="SelectedFaculty-search" list="FacultyList" placeholder="Type to Search for a Faculty Member">
     <datalist id="FacultyList">
@@ -75,7 +190,7 @@
         }
     </datalist>
     </input>
-    <button class="btn btn-primary" type="submit">Search</button>
+    <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
 
 
@@ -83,7 +198,7 @@
     <thead>
         <tr>
             <th>Faculty</th>
-            <th>Office Hours Day</th>
+            <th>OfficeHoursDays</th>
             <th>Start Time</th>
             <th>End Time</th>
             <th>Office Location</th>
@@ -102,9 +217,10 @@
                 <td>
                     <div class="btn-group" role="group">
                         <form method="post" asp-page-handler="AddToQueue">
-
+                            
                             <input type="hidden" asp-for="selectedFacultyID" name="facultyID" value="@SpecificOfficeHours.FacultyID" />
                             <input type="hidden" asp-for="selectedOfficeHoursID" value="@SpecificOfficeHours.OfficeHoursID" />
+                            <input type="hidden" asp-for="Purpose" value="meeting-purpose" />
                             <button type="submit" class="btn btn-outline-primary btn-purple">Select</button>
                         </form>
                     </div>
@@ -125,4 +241,3 @@
         </ul>
     </div>
 }
-

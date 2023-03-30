@@ -5,6 +5,10 @@
 
         public int QueueID { get; set; }
 
+        public String? MeetingPurpose { get; set; }
+
+        public int? QueuePosition { get; set; 
+        }
         public int StudentID { get; set; }
 
         public int OfficeHoursID { get; set; }
