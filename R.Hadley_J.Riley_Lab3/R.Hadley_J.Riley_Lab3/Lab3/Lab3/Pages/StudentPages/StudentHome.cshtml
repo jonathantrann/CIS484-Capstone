@@ -171,6 +171,7 @@
             <th>End Time</th>
             <th>Professor</th>
             <th>Waiting Room</th>
+            <th>Queue Position</th>
             <th>Command:</th>
 
         </tr>
@@ -186,6 +187,7 @@
                     <td>@queue.OHEndTime</td>
                     <td>@queue.FacultyFirst @queue.FacultyLast</td>
                     <td>@queue.WaitingRoom</td>
+                    <td>@queue.QueuePosition</td>
                     <td>
                         <form method="post" asp-page-handler="QueueRowsByUsername">
                             <input type="hidden" name="username" value="@queue.OHStartTime" />

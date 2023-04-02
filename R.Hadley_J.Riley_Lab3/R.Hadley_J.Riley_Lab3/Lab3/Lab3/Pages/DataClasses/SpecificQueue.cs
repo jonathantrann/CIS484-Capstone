@@ -24,6 +24,8 @@
 
         public String? OfficeLocation { get; set; }
 
+        public int QueuePosition { get; set; }
+
         public int QueueID { get; set; }
 
         public String? StudentFirst { get; set; }

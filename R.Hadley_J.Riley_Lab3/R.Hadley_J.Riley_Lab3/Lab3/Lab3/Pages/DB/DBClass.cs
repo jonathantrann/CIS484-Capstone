@@ -293,7 +293,7 @@ namespace Lab3.Pages.DB
             SqlCommand cmdSpecFacultyRead = new SqlCommand();
             cmdSpecFacultyRead.Connection = LabDBConnection;
             cmdSpecFacultyRead.Connection.ConnectionString = LabDBConnString;
-            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, Queue.MeetingPurpose, Queue.QueuePosition FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username";
+            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, Queue.QueuePosition FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username";
 
             cmdSpecFacultyRead.Parameters.AddWithValue("@Username", username);
 
@@ -321,23 +321,63 @@ namespace Lab3.Pages.DB
         }
 
 
+        //public static void InsertQueue(Queue q, int officehoursID)
+        //{
+        //    LabDBConnection.Close();
+        //    using (SqlConnection connection = new SqlConnection(LabDBConnString))
+        //    {
+        //        connection.Open();
+
+        //        string sqlQuery = "INSERT INTO Queue (QueuePosition, StudentID, OfficeHoursID) VALUES(@QueuePosition, @StudentID, @OfficeHoursID);";
+
+        //        using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+        //        {
+        //            command.Parameters.AddWithValue("@QueuePosition", q.QueuePosition);
+        //            command.Parameters.AddWithValue("@StudentID", q.StudentID);
+        //            command.Parameters.AddWithValue("@OfficeHoursID", officehoursID);
+
+
+        //            command.ExecuteNonQuery();
+
+        //        }
+        //    }
+        //}
+
         public static void InsertQueue(Queue q, int officehoursID)
         {
+            if (q == null)
+            {
+                throw new ArgumentNullException(nameof(q));
+            }
+
+            if (officehoursID < 0)
+            {
+                throw new ArgumentException("officehoursID must be a positive integer.", nameof(officehoursID));
+            }
+
             LabDBConnection.Close();
+
             using (SqlConnection connection = new SqlConnection(LabDBConnString))
             {
                 connection.Open();
 
-                string sqlQuery = "INSERT INTO Queue (MeetingPurpose, QueuePosition, StudentID, OfficeHoursID) VALUES(@MeetingPurpose, @QueuePosition, @StudentID, @OfficeHoursID);";
+                string sqlQuery = "INSERT INTO Queue (QueuePosition, StudentID, OfficeHoursID) VALUES(@QueuePosition, @StudentID, @OfficeHoursID);";
 
-                using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@StudentID", q.StudentID);
-                    command.Parameters.AddWithValue("@OfficeHoursID", officehoursID);
-                    command.Parameters.AddWithValue("@MeetingPurpose", q.MeetingPurpose);
+                    using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@QueuePosition", q.QueuePosition);
+                        command.Parameters.AddWithValue("@StudentID", q.StudentID);
+                        command.Parameters.AddWithValue("@OfficeHoursID", officehoursID);
 
-                    command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
+                    }
 
+                }
+                catch (Exception ex) 
+                {
+                    Console.WriteLine("Error inserting into the Queue table: " + ex.Message);
                 }
             }
         }

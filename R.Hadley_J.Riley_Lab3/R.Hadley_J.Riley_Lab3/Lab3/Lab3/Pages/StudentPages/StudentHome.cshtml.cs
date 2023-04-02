@@ -48,6 +48,7 @@ namespace Lab3.Pages.StudentPages
                         FacultyFirst = SpecificQueueReader["FacultyFirst"].ToString(),
                         FacultyLast = SpecificQueueReader["FacultyLast"].ToString(),
                         WaitingRoom = SpecificQueueReader["WaitingRoom"].ToString(),
+                        QueuePosition = Int32.Parse(SpecificQueueReader["QueuePosition"].ToString()),
 
                     });
                 }

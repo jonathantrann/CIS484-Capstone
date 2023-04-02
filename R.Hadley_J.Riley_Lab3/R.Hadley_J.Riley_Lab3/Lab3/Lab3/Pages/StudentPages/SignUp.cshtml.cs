@@ -122,7 +122,7 @@ namespace Lab3.Pages.StudentPages
                 NewQueue.StudentID = currentStudentID;
                 NewQueue.OfficeHoursID = selectedOfficeHoursID;
                 NewQueue.MeetingPurpose = Purpose;
-                NewQueue.QueuePosition = null;
+                NewQueue.QueuePosition = QueuePosition;
                 DBClass.InsertQueue(NewQueue, selectedOfficeHoursID);
 
 
