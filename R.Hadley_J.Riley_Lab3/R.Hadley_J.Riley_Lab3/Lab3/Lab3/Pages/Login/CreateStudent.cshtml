@@ -2,73 +2,151 @@
 @model Lab3.Pages.Login.CreateStudentModel
 @{
 }
-<style>
-    body {
-        background-color: #CBC3E3;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .form-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: lightslategrey;
-        border: 2px solid #450084;
-        border-radius: 5px;
-        padding: 20px;
-        margin: 20px;
-    }
 
-        .form-container input {
-            margin: 10px;
-            padding: 5px;
-            width: 200px;
+    <!-- Bootstrap v5.1.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@1,300&family=Cinzel:wght@400;700&family=Nanum+Gothic&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
         }
 
-        .form-container button {
-            background-color: #450084;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            margin: 10px;
-            cursor: pointer;
+        body {
+            margin: auto;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 3px;
         }
-</style>
 
-<h1>Student Sign Up</h1>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
 
-<form method="post">
-    <div>
-        <label for="StudentFirst">First Name:</label>
-        <input type="text" id="StudentFirst" name="NewStudent.StudentFirst" />
-    </div>
-    <div>
-        <label for="StudentLast">Last Name:</label>
-        <input type="text" id="StudentLast" name="NewStudent.StudentLast" />
-    </div>
-    <div>
-        <label for="StudentEmailAddress">Email Address:</label>
-        <input type="email" id="StudentEmailAddress" name="NewStudent.StudentEmailAddress" />
-    </div>
-    <div>
-        <label for="StudentPhoneNumber">Phone Number:</label>
-        <input type="tel" id="StudentPhoneNumber" name="NewStudent.StudentPhoneNumber" />
-    </div>
-    <div>
-        <label for="Username">Username:</label>
-        <input type="text" id="Username" name="NewStudent.Username" />
-    </div>
-    <div>
-        <label for="autofill-input" hidden>Type:</label>
-        <input type="text" name="NewStudent.type" value="S" readonly hidden />
-    </div>
+        .containerpage {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+            background-image: url(images/cob-building.png);
+            background-size: cover;
+            height: 100vh;
+        }
 
-    <button type="button" onclick="populateFields()">Populate</button>
-    <button type="button" onclick="clearFields()">Clear</button>
-    <button type="submit">Submit</button>
-</form>
+        .title {
+            grid-column: 1/13;
+            text-align: center;
+            background-color: white;
+            margin: auto;
+            padding: 50px;
+            font-size: 50px;
+        }
 
+        .textentry {
+            grid-column: 1/13;
+            text-align: center;
+            background-color: white;
+            margin: 0px 150px 0px 150px;
+            padding: 50px;
+        }
+
+        .submit {
+            grid-column: 1/13;
+            background-color: white;
+            margin: 0px 150px 0px 100px;
+            text-align: left;
+            padding: 50px 0px 0px 0px;
+        }
+
+        .btn-primary {
+            background-color: #220d59;
+            border: #220d59;
+            width: 400px;
+            font-size: 20px;
+        }
+
+            .btn-primary:hover {
+                background-color: #4219a9;
+            }
+
+        .create {
+            grid-column: 2/14;
+            background-color: white;
+            margin: 0px 0px 0px 0px;
+            text-align: left;
+            padding: 0px 0px 0px 0px;
+            float: right;
+        }
+
+        a:link {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #fff;
+        }
+
+        a:hover {
+            color: #fff;
+            text-decoration-style: double;
+        }
+
+        .textbox {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="containerpage">
+        <div class="title">
+            Student SignUp
+        </div>
+
+        <form method="post">
+            <div class="textbox">
+                <div>
+                    <label for="StudentFirst">First Name:</label>
+                    <input type="text" class="form-control" id="StudentFirst" name="NewStudent.StudentFirst" />
+                </div>
+                <div>
+                    <label for="StudentLast">Last Name:</label>
+                    <input type="text" class="form-control" id="StudentLast" name="NewStudent.StudentLast" />
+                </div>
+                <div>
+                    <label for="StudentEmailAddress">Email Address:</label>
+                    <input type="email" class="form-control" id="StudentEmailAddress" name="NewStudent.StudentEmailAddress" />
+                </div>
+                <div>
+                    <label for="StudentPhoneNumber">Phone Number:</label>
+                    <input type="tel" class="form-control" id="StudentPhoneNumber" name="NewStudent.StudentPhoneNumber" />
+                </div>
+                <div>
+                    <label for="Username">Username:</label>
+                    <input type="text" class="form-control" id="Username" name="NewStudent.Username" />
+                </div>
+                <div>
+                    <label for="autofill-input" hidden>Type:</label>
+                    <input type="text" name="NewStudent.type" value="S" readonly hidden />
+                </div>
+            </div>
+            <br />
+            <div class="create">
+                <button type="button" class="btn btn-primary" onclick="populateFields()">Populate</button>
+                <button type="button" class="btn btn-primary" onclick="clearFields()">Clear</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+</body>
 <script>
     function populateFields() {
         document.getElementById("StudentFirst").value = "John";
@@ -77,7 +155,7 @@
         document.getElementById("StudentPhoneNumber").value = "123-456-7890";
         document.getElementById("Username").value = "johndoe";
     }
-    
+
     function clearFields() {
         document.getElementById("StudentFirst").value = "";
         document.getElementById("StudentLast").value = "";

@@ -2,7 +2,7 @@
 @model Lab3.Pages.FacultyPages.Office_Hours_ManagerModel
 @{
 }
-<style>
+@*<style>
     body {
         background-color: #CBC3E3;
     }
@@ -17,7 +17,7 @@
             border-color: #6b2ebe;
         }
 </style>
-
+*@
 @{
     var username = HttpContext.Session.GetString("Username");
 }
@@ -29,9 +29,9 @@
 
 @*Redirect buttons*@
 <div class="text-center">
-    <a class="btn btn-secondary" href="/FacultyPages/FacultyHome">Faculty Home</a>
-    <a class="btn btn-secondary" href="/FacultyPages/QueueManager">Queue Manager</a>
-    <a class="btn btn-secondary" href="/Index">Logout</a>
+    <a class="btn btn-primary" href="/FacultyPages/FacultyHome">Faculty Home</a>
+    <a class="btn btn-primary" href="/FacultyPages/QueueManager">Queue Manager</a>
+    <a class="btn btn-primary" href="/Index">Logout</a>
 </div>
 <br>
 
