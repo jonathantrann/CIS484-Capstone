@@ -302,3 +302,41 @@ C:\Users\menkw\source\repos\3-30-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\
 C:\Users\menkw\source\repos\3-30-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.pdb
 C:\Users\menkw\source\repos\3-30-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.genruntimeconfig.cache
 C:\Users\menkw\source\repos\3-30-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\ref\Lab3.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\appsettings.Development.json
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\appsettings.json
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\Lab3.staticwebassets.runtime.json
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\Lab3.exe
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\Lab3.deps.json
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\Lab3.runtimeconfig.json
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\Lab3.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\Lab3.pdb
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\System.Data.SqlClient.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.csproj.AssemblyReference.cache
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.AssemblyInfoInputs.cache
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.AssemblyInfo.cs
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.csproj.CoreCompileInputs.cache
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.MvcApplicationPartsAssemblyInfo.cache
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.RazorAssemblyInfo.cache
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.RazorAssemblyInfo.cs
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\staticwebassets\msbuild.Lab3.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\staticwebassets\msbuild.build.Lab3.props
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Lab3.props
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Lab3.props
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\staticwebassets.pack.json
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\staticwebassets.build.json
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\staticwebassets.development.json
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\scopedcss\bundle\Lab3.styles.css
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\scopedcss\projectbundle\Lab3.bundle.scp.css
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.csproj.CopyComplete
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\refint\Lab3.dll
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.pdb
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\Lab3.genruntimeconfig.cache
+D:\Users\jhadley\Source\Repos\CIS484-Capstone 4-4-23\R.Hadley_J.Riley_Lab3\R.Hadley_J.Riley_Lab3\Lab3\Lab3\obj\Debug\net6.0\ref\Lab3.dll

@@ -172,6 +172,7 @@ namespace Lab3.Pages.DB
         // Adds a new student when signing up for office hours
         public static int InsertFaculty(Faculty f)
         {
+            LabDBConnection.Close();
             String sqlQuery = "INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) OUTPUT INSERTED.FacultyID VALUES (@FacultyFirst, @FacultyLast, @FacultyEmailAddress, @FacultyPhoneNumber, @OfficeLocation, @Username, @type)";
 
             SqlCommand cmdStudentRead = new SqlCommand();
@@ -461,7 +462,7 @@ namespace Lab3.Pages.DB
             cmdSpecOfficeHoursRead.Connection = LabDBConnection;
             cmdSpecOfficeHoursRead.Connection.ConnectionString = LabDBConnString;
             cmdSpecOfficeHoursRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, " +
-                "OfficeHours.OHStartTime, OfficeHours.OHEndTime, Faculty.OfficeLocation FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID " +
+                "OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, Faculty.OfficeLocation FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID " +
                 "WHERE Faculty.FacultyID = @FacultyID " +
                 "AND OfficeHours.OfficeHoursID = @OfficeHoursID;";
             cmdSpecOfficeHoursRead.Parameters.AddWithValue("@FacultyID", facultyid);
@@ -523,6 +524,27 @@ namespace Lab3.Pages.DB
                 }
             }
         }
-        
+
+        public static SqlDataReader StudentsInSpecificQueue(int facultyid, int officehoursid)
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdStudentsInQueueRead = new SqlCommand();
+            cmdStudentsInQueueRead.Connection = LabDBConnection;
+            cmdStudentsInQueueRead.Connection.ConnectionString = LabDBConnString;
+            cmdStudentsInQueueRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, " +
+                "OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, Faculty.OfficeLocation, Student.StudentID, Student.StudentFirst, Student.StudentLast " +
+                "FROM Student " +
+                "JOIN Queue ON Student.StudentID = Queue.StudentID " +
+                "JOIN OfficeHours ON OfficeHours.OfficeHoursID = Queue.OfficeHoursID " +
+                "JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID " +
+                "WHERE Faculty.FacultyID = @FacultyID " +
+                "AND OfficeHours.OfficeHoursID = @OfficeHoursID;";
+            cmdStudentsInQueueRead.Parameters.AddWithValue("@FacultyID", facultyid);
+            cmdStudentsInQueueRead.Parameters.AddWithValue("@OfficeHoursID", officehoursid);
+            cmdStudentsInQueueRead.Connection.Open();
+            SqlDataReader tempReader = cmdStudentsInQueueRead.ExecuteReader();
+            return tempReader;
+        }
+
     }
 }

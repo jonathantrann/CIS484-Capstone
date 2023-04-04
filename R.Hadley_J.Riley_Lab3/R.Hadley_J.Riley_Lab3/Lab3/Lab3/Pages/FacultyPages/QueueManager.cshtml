@@ -21,11 +21,6 @@
             border-color: #6b2ebe;
         }
 </style>
-@*Header*@
-<div class="text-left">
-    Riley Hadley and Jack Riley
-</div>
-
 
 
 <div class="text-center">
@@ -45,16 +40,14 @@
 <form asp-page-handler="SingleSelect" method="post">
     <select asp-for="SelectedOfficeHours" class="form-select">
         <option selected>Select Office Hours</option>
-        @foreach (var officehours in Model.SelectOfficeHoursList)
+        @foreach(var officehours in Model.SelectOfficeHoursList)
         {
             <option value="@officehours.OfficeHoursID">@officehours.OfficeHoursDays from @officehours.OHStartTime to @officehours.OHEndTime</option>
         }
     </select>
     <br />
-    <button class="btn btn-primary">Confirm</button>
+    <button class ="btn btn-primary">Confirm</button>
 </form>
-
-
 
 @*Shows the current total students in queue*@
 
