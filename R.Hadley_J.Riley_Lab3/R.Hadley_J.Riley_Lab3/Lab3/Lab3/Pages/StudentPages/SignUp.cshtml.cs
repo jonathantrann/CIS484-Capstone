@@ -64,7 +64,7 @@ namespace Lab3.Pages.StudentPages
             {
                 SpecificOfficeHoursList.Add(new SpecificOfficeHours
                 {
-                    OfficeHoursID = Int32.Parse(SpecificOfficeHoursReader["OfficeHoursID"].ToString()),
+                    OfficeHoursID = int.Parse(SpecificOfficeHoursReader["OfficeHoursID"].ToString()),
                     FacultyFirst = SpecificOfficeHoursReader["FacultyFirst"].ToString(),
                     FacultyLast = SpecificOfficeHoursReader["FacultyLast"].ToString(),
                     OfficeHoursDays = SpecificOfficeHoursReader["OfficeHoursDays"].ToString(),

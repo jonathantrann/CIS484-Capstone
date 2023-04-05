@@ -173,6 +173,7 @@
             <th>Waiting Room</th>
             <th>Queue Position</th>
             <th>Command:</th>
+            <th>Status</th>
 
         </tr>
     </thead>
@@ -180,24 +181,31 @@
         @foreach (var queue in Model.SpecificQueueList)
         {
                 <tr>
-
-
-                    <td>@queue.OfficeHoursDays</td>
-                    <td>@queue.OHStartTime</td>
-                    <td>@queue.OHEndTime</td>
-                    <td>@queue.FacultyFirst @queue.FacultyLast</td>
-                    <td>@queue.WaitingRoom</td>
-                    <td>@queue.QueuePosition</td>
-                    <td>
-                        <form method="post" asp-page-handler="QueueRowsByUsername">
-                            <input type="hidden" name="username" value="@queue.OHStartTime" />
-                            <input type="hidden" name="username" value="@queue.OHEndTime" />
-                            <input type="hidden" name="username" value="@queue.FacultyLast" />
-                            <button type="submit" name="command" value="delete" class="btn btn-danger">Cancel</button>
-                        </form>
-
-                    </td>
-                </tr>
+                <td>@queue.OfficeHoursDays</td>
+                <td>@queue.OHStartTime</td>
+                <td>@queue.OHEndTime</td>
+                <td>@queue.FacultyFirst @queue.FacultyLast</td>
+                <td>@queue.WaitingRoom</td>
+                <td>@queue.QueuePosition</td>
+                <td>
+                    <form method="post" asp-page-handler="QueueRowsByUsername">
+                        <input type="hidden" name="username" value="@queue.OHStartTime" />
+                        <input type="hidden" name="username" value="@queue.OHEndTime" />
+                        <input type="hidden" name="username" value="@queue.FacultyLast" />
+                        <button type="submit" name="command" value="delete" class="btn btn-danger">Cancel</button>
+                    </form>
+                </td>
+                <td>
+                    @if (queue.Ready.GetValueOrDefault())
+                    {
+                        <span class="text-success">Ready</span>
+                    }
+                    else
+                    {
+                        <span class="text-warnixng">Waiting</span>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

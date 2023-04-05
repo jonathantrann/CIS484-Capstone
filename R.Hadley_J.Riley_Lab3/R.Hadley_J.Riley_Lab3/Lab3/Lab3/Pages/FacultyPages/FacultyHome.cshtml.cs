@@ -82,6 +82,7 @@ namespace Lab3.Pages.FacultyPages
             }
             return Page();
         }
+
     }
 
 }

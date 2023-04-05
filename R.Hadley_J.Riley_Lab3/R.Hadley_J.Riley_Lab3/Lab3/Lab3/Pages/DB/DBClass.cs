@@ -114,11 +114,12 @@ namespace Lab3.Pages.DB
         public static bool IsStudent(string Username)
         {
             LabDBConnection.Close();
-                string typeQuery = "SELECT type FROM Student WHERE Username = @Username";
 
+            string typeQuery = "SELECT type FROM Student WHERE Username = @Username";
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = LabDBConnection;
+            cmd.Connection.Close();
             cmd.Connection.ConnectionString = LabDBConnString;
 
             cmd.CommandText = typeQuery;
@@ -137,7 +138,7 @@ namespace Lab3.Pages.DB
             {
                 return false;
             }
-                
+
         }
 
         public static bool IsFaculty(string Username)
@@ -177,6 +178,7 @@ namespace Lab3.Pages.DB
 
             SqlCommand cmdStudentRead = new SqlCommand();
             cmdStudentRead.Connection = LabDBConnection;
+            cmdStudentRead.Connection.Close();
             cmdStudentRead.Connection.ConnectionString = LabDBConnString;
             cmdStudentRead.CommandText = sqlQuery;
 
@@ -294,7 +296,7 @@ namespace Lab3.Pages.DB
             SqlCommand cmdSpecFacultyRead = new SqlCommand();
             cmdSpecFacultyRead.Connection = LabDBConnection;
             cmdSpecFacultyRead.Connection.ConnectionString = LabDBConnString;
-            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, Queue.QueuePosition FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username";
+            cmdSpecFacultyRead.CommandText = "SELECT Queue.ready, Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username";
 
             cmdSpecFacultyRead.Parameters.AddWithValue("@Username", username);
 
@@ -404,6 +406,7 @@ namespace Lab3.Pages.DB
             LabDBConnection.Close();
             SqlCommand cmdInfoRead = new SqlCommand();
             cmdInfoRead.Connection = LabDBConnection;
+            cmdInfoRead.Connection.Close();
             cmdInfoRead.Connection.ConnectionString = LabDBConnString;
             cmdInfoRead.CommandText = "SELECT Student.StudentFirst, Student.StudentLast, Student.StudentEmailAddress, Student.StudentPhoneNumber, Student.Username FROM Student WHERE Student.Username = @Username;";
             cmdInfoRead.Parameters.AddWithValue("@Username", username);
@@ -448,9 +451,9 @@ namespace Lab3.Pages.DB
                     {
                         return true;
                     }
-                    
+
                     return false;
-                   
+
                 }
             }
         }
@@ -512,7 +515,7 @@ namespace Lab3.Pages.DB
 
                 using (SqlCommand command = new SqlCommand(sqlQuery, connection))
                 {
-                    
+
                     command.Parameters.AddWithValue("@OfficeHoursDays", o.OfficeHoursDays);
                     command.Parameters.AddWithValue("@OHStartTime", o.OHStartTime);
                     command.Parameters.AddWithValue("@OHEndTime", o.OHEndTime);
@@ -545,6 +548,29 @@ namespace Lab3.Pages.DB
             SqlDataReader tempReader = cmdStudentsInQueueRead.ExecuteReader();
             return tempReader;
         }
+        public static void NotifyStudent(int queueId)
+        {
+            LabDBConnection.Close();
+            using (SqlConnection connection = new SqlConnection(LabDBConnString))
+            {
+                connection.Open();
 
+                // change this to edit the queue to be ready aka change the 
+                string sqlQuery = "";
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                {
+
+                    //command.Parameters.AddWithValue("@OfficeHoursDays", o.OfficeHoursDays);
+                    //command.Parameters.AddWithValue("@OHStartTime", o.OHStartTime);
+                    //command.Parameters.AddWithValue("@OHEndTime", o.OHEndTime);
+                    //command.Parameters.AddWithValue("@WaitingRoom", o.WaitingRoom);
+                    //command.Parameters.AddWithValue("@FacultyID", facultyid);
+
+                    command.ExecuteNonQuery();
+
+                }
+            }
+        }
     }
 }

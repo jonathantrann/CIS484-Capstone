@@ -99,6 +99,12 @@ namespace Lab3.Pages.FacultyPages
             }
             return Page();
         }
+        public IActionResult OnPostNotifyStudent(int queueId)
+        {
+            // Update the queue record in the database to indicate that the student has been notified
+            DBClass.NotifyStudent(queueId);
 
+            return RedirectToPage("/FacultyPages/QueueManager");
+        }
     }
 }

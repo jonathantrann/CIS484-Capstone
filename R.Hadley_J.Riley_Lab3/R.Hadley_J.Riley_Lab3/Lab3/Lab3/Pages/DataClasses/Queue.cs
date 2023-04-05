@@ -11,6 +11,8 @@
         }
         public int StudentID { get; set; }
 
+        public bool ready { get; set; }
+
         public int OfficeHoursID { get; set; }
     }
 }

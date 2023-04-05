@@ -12,6 +12,8 @@
 
         public String? WaitingRoom { get; set; }
 
+        public bool? Ready { get; set; }
+
         public int FacultyID { get; set; }
 
         public String? FacultyFirst { get; set; }
