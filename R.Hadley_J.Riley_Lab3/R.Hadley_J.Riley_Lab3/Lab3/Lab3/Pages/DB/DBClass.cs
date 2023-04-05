@@ -296,7 +296,7 @@ namespace Lab3.Pages.DB
             SqlCommand cmdSpecFacultyRead = new SqlCommand();
             cmdSpecFacultyRead.Connection = LabDBConnection;
             cmdSpecFacultyRead.Connection.ConnectionString = LabDBConnString;
-            cmdSpecFacultyRead.CommandText = "SELECT Queue.ready, Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username";
+            cmdSpecFacultyRead.CommandText = "SELECT Queue.ready, Queue.QueuePosition, Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username";
 
             cmdSpecFacultyRead.Parameters.AddWithValue("@Username", username);
 
@@ -535,7 +535,7 @@ namespace Lab3.Pages.DB
             cmdStudentsInQueueRead.Connection = LabDBConnection;
             cmdStudentsInQueueRead.Connection.ConnectionString = LabDBConnString;
             cmdStudentsInQueueRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, " +
-                "OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, Faculty.OfficeLocation, Student.StudentID, Student.StudentFirst, Student.StudentLast " +
+                "OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, Faculty.OfficeLocation, Student.StudentID, Student.StudentFirst, Student.StudentLast, Queue.QueueID " +
                 "FROM Student " +
                 "JOIN Queue ON Student.StudentID = Queue.StudentID " +
                 "JOIN OfficeHours ON OfficeHours.OfficeHoursID = Queue.OfficeHoursID " +
@@ -555,17 +555,12 @@ namespace Lab3.Pages.DB
             {
                 connection.Open();
 
-                // change this to edit the queue to be ready aka change the 
-                string sqlQuery = "";
+                string sqlQuery = "UPDATE Queue SET ready = 1 WHERE queueID = @queueID;";
 
                 using (SqlCommand command = new SqlCommand(sqlQuery, connection))
                 {
 
-                    //command.Parameters.AddWithValue("@OfficeHoursDays", o.OfficeHoursDays);
-                    //command.Parameters.AddWithValue("@OHStartTime", o.OHStartTime);
-                    //command.Parameters.AddWithValue("@OHEndTime", o.OHEndTime);
-                    //command.Parameters.AddWithValue("@WaitingRoom", o.WaitingRoom);
-                    //command.Parameters.AddWithValue("@FacultyID", facultyid);
+                    command.Parameters.AddWithValue("@queueID", queueId);
 
                     command.ExecuteNonQuery();
 

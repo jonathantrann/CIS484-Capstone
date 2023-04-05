@@ -3,6 +3,7 @@ using Lab3.Pages.DataClasses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Lab3.Pages.FacultyPages
 {
@@ -83,6 +84,7 @@ namespace Lab3.Pages.FacultyPages
                 {
                     SpecificQueueList.Add(new SpecificQueue
                     {
+                        QueueID = Int32.Parse(SpecificOfficeHoursReader["QueueID"].ToString()),
                         OfficeHoursID = Int32.Parse(SpecificOfficeHoursReader["OfficeHoursID"].ToString()),
                         OfficeHoursDays = SpecificOfficeHoursReader["OfficeHoursDays"].ToString(),
                         OHStartTime = SpecificOfficeHoursReader["OHStartTime"].ToString(),
@@ -101,10 +103,9 @@ namespace Lab3.Pages.FacultyPages
         }
         public IActionResult OnPostNotifyStudent(int queueId)
         {
-            // Update the queue record in the database to indicate that the student has been notified
+            Debug.WriteLine(queueId);
             DBClass.NotifyStudent(queueId);
-
-            return RedirectToPage("/FacultyPages/QueueManager");
+            return Page();
         }
     }
 }
