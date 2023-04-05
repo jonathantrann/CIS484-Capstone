@@ -3,7 +3,6 @@ using Lab3.Pages.DataClasses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
-using System.Diagnostics;
 
 namespace Lab3.Pages.FacultyPages
 {
@@ -103,7 +102,6 @@ namespace Lab3.Pages.FacultyPages
         }
         public IActionResult OnPostNotifyStudent(int queueId)
         {
-            Debug.WriteLine(queueId);
             DBClass.NotifyStudent(queueId);
             return Page();
         }
