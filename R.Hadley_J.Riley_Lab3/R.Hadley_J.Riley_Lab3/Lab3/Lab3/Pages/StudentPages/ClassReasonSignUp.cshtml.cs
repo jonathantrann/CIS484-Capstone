@@ -37,9 +37,13 @@ namespace Lab3.Pages.StudentPages
         }
         public void OnGet()
         {
+
             int selectedFacultyID = HttpContext.Session.GetInt32("selectedFacultyID") ?? 0;
 
             int selectedOfficeHoursID = HttpContext.Session.GetInt32("selectedOfficeHoursID") ?? 0;
+
+            HttpContext.Session.SetInt32("selectedOfficeHoursID", selectedOfficeHoursID); // store the value in the session data
+
 
             SqlDataReader specificFacultyClassesReader = DBClass.SpecificFacultyClassesReader(selectedFacultyID);
             while(specificFacultyClassesReader.Read())
@@ -60,19 +64,11 @@ namespace Lab3.Pages.StudentPages
         {
             ModelState.Clear();
 
-            //SqlDataReader SpecificOfficeHoursReader = DBClass.SpecificOfficeHours(selectedFacultyID); int selectedOfficeHoursID = 0;
-            //if (SpecificOfficeHoursReader.Read())
-            //{
-            //    selectedOfficeHoursID = Convert.ToInt32(SpecificOfficeHoursReader["OfficeHoursID"]);
-
-            //}
-
-            //HttpContext.Session.SetInt32("selectedOfficeHoursID", selectedOfficeHoursID);
-            //SpecificOfficeHoursReader.Close();
-
-
             // Get student's email from session data
             string username = HttpContext.Session.GetString("Username");
+
+            // Get selected office hours ID from session data
+            int selectedOfficeHoursID = HttpContext.Session.GetInt32("selectedOfficeHoursID") ?? 0;
 
             // Get studentID based on email
             SqlDataReader studentIDReader = DBClass.GetStudentID(username);
@@ -89,19 +85,23 @@ namespace Lab3.Pages.StudentPages
             }
             else
             {
+                // Get the number of students in the queue for the selected office hours
+                int numStudents = DBClass.GetQueueCount(selectedOfficeHoursID);
 
-                // Add student to queue
+                // Initialize NewQueue object
                 NewQueue.StudentID = currentStudentID;
                 NewQueue.OfficeHoursID = selectedOfficeHoursID;
                 NewQueue.MeetingPurpose = Purpose;
-                NewQueue.QueuePosition = QueuePosition;
-                DBClass.InsertQueue(NewQueue, selectedOfficeHoursID);
+                NewQueue.QueuePosition = numStudents + 1; // Set the queue position based on the number of students in the queue
 
+                // Add student to queue
+                DBClass.InsertQueue(NewQueue, selectedOfficeHoursID);
 
                 // Redirect to Queue page
                 return RedirectToPage("/StudentPages/StudentHome");
             }
-
         }
+
+
     }
 }

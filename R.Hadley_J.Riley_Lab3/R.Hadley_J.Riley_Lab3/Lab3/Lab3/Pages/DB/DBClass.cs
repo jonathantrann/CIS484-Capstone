@@ -398,14 +398,16 @@ namespace Lab3.Pages.DB
             {
                 connection.Open();
 
-                string sqlQuery = "INSERT INTO Queue (QueuePosition, StudentID, OfficeHoursID) VALUES(@QueuePosition, @StudentID, @OfficeHoursID);";
+                string sqlQuery = "INSERT INTO Queue (MeetingPurpose, QueuePosition, StudentID, ready, OfficeHoursID) VALUES(@MeetingPurpose, @QueuePosition, @StudentID, @ready, @OfficeHoursID);";
 
                 try
                 {
                     using (SqlCommand command = new SqlCommand(sqlQuery, connection))
                     {
+                        command.Parameters.AddWithValue("@MeetingPurpose", q.MeetingPurpose);
                         command.Parameters.AddWithValue("@QueuePosition", q.QueuePosition);
                         command.Parameters.AddWithValue("@StudentID", q.StudentID);
+                        command.Parameters.AddWithValue("@ready", q.ready);
                         command.Parameters.AddWithValue("@OfficeHoursID", officehoursID);
 
                         command.ExecuteNonQuery();
@@ -418,6 +420,41 @@ namespace Lab3.Pages.DB
                 }
             }
         }
+
+
+        public static int GetQueueCount(int officehoursID)
+        {
+            if (officehoursID < 0)
+            {
+                throw new ArgumentException("officehoursID must be a positive integer.", nameof(officehoursID));
+            }
+
+            int queueCount = 0;
+
+            using (SqlConnection connection = new SqlConnection(LabDBConnString))
+            {
+                connection.Open();
+
+                string sqlQuery = "SELECT COUNT(*) FROM Queue WHERE OfficeHoursID = @OfficeHoursID";
+
+                try
+                {
+                    using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@OfficeHoursID", officehoursID);
+
+                        queueCount = (int)command.ExecuteScalar();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error retrieving queue count: " + ex.Message);
+                }
+            }
+
+            return queueCount;
+        }
+
 
 
         public static SqlDataReader GetStudentID(String username)

@@ -54,19 +54,18 @@ namespace Lab3.Pages.StudentPages
 
         public IActionResult OnPostSingleSelect()
         {
-            SqlDataReader SpecificOfficeHoursReader = DBClass.SpecificOfficeHours(selectedFacultyID); int selectedOfficeHoursID = 0;
-            if(SpecificOfficeHoursReader.Read())
+            SqlDataReader SpecificOfficeHoursReader = DBClass.SpecificOfficeHours(selectedFacultyID);
+            if (SpecificOfficeHoursReader.Read())
             {
                 selectedOfficeHoursID = Convert.ToInt32(SpecificOfficeHoursReader["OfficeHoursID"]);
-
             }
 
             HttpContext.Session.SetInt32("selectedOfficeHoursID", selectedOfficeHoursID);
             SpecificOfficeHoursReader.Close();
 
             return RedirectToPage("/StudentPages/ClassReasonSignUp");
-
         }
+
 
     }
 }
