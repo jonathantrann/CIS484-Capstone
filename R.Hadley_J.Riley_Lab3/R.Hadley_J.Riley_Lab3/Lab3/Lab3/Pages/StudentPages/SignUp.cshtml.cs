@@ -22,17 +22,16 @@ namespace Lab3.Pages.StudentPages
         [BindProperty] public int QueuePosition { get; set; }
         [BindProperty] public string Purpose { get; set; }
 
-        public Queue NewQueue { get; set; }
 
-
+        public List<Faculty> FacultySearchList;
         public List<SpecificOfficeHours> SpecificOfficeHoursList;
 
+        
         public SignUpModel()
         {
-            
+            FacultySearchList =  new List<Faculty>();
             FacultyList = new List<Faculty>();
             SpecificOfficeHoursList = new List<SpecificOfficeHours>();
-            NewQueue = new Queue();
         }
 
         public void OnGet()
@@ -55,82 +54,96 @@ namespace Lab3.Pages.StudentPages
             }
 
         }
-        public IActionResult OnPostSingleSelect()
+
+
+
+        public IActionResult OnPostFacultySelect()
         {
-            SpecificOfficeHoursList.Clear();
-            SqlDataReader SpecificOfficeHoursReader = DBClass.SpecificFaculty(SearchedFaculty);
+            FacultySearchList.Clear();
+            SqlDataReader SpecificFacultyReader = DBClass.SearchedFacultyReader(SearchedFaculty);
 
-            while (SpecificOfficeHoursReader.Read())
+            int selectedFacultyID = 0;
+            if (SpecificFacultyReader.Read())
             {
-                SpecificOfficeHoursList.Add(new SpecificOfficeHours
-                {
-                    OfficeHoursID = int.Parse(SpecificOfficeHoursReader["OfficeHoursID"].ToString()),
-                    FacultyFirst = SpecificOfficeHoursReader["FacultyFirst"].ToString(),
-                    FacultyLast = SpecificOfficeHoursReader["FacultyLast"].ToString(),
-                    OfficeHoursDays = SpecificOfficeHoursReader["OfficeHoursDays"].ToString(),
-                    OHStartTime = SpecificOfficeHoursReader["OHStartTime"].ToString(),
-                    OHEndTime = SpecificOfficeHoursReader["OHEndTime"].ToString(),
-                    OfficeLocation = SpecificOfficeHoursReader["OfficeLocation"].ToString()
-                    
+                // If the reader has data, get the ID of the first faculty record
+                selectedFacultyID = Convert.ToInt32(SpecificFacultyReader["FacultyID"]);
+            }
 
+            // Set the "selectedFacultyID" session variable to the selected faculty ID
+            HttpContext.Session.SetInt32("selectedFacultyID", selectedFacultyID);
+
+            // Populate the FacultySearchList with data from the reader
+            SpecificFacultyReader.Close(); // close the reader before using it again
+            SpecificFacultyReader = DBClass.SearchedFacultyReader(SearchedFaculty);
+            while (SpecificFacultyReader.Read())
+            {
+                FacultySearchList.Add(new Faculty
+                {
+                    FacultyFirst = SpecificFacultyReader["FacultyFirst"].ToString(),
+                    FacultyLast = SpecificFacultyReader["FacultyLast"].ToString(),
                 });
             }
 
-
+            // Populate the FacultyList with data from the faculty table
+            SpecificFacultyReader.Close(); // close the reader before using it again
             SqlDataReader FacultyReader = DBClass.FacultyReader();
-
             while (FacultyReader.Read())
             {
-
                 FacultyList.Add(new Faculty
                 {
                     FacultyID = Int32.Parse(FacultyReader["FacultyID"].ToString()),
                     FacultyFirst = FacultyReader["FacultyFirst"].ToString(),
                     FacultyLast = FacultyReader["FacultyLast"].ToString()
-
                 });
-
             }
 
             return Page();
-
         }
-        public IActionResult OnPostAddToQueue()
+
+        //public IActionResult OnPostFacultySelect()
+        //{
+        //    FacultySearchList.Clear();
+        //    SqlDataReader SpecificFacultyReader = DBClass.SearchedFacultyReader(SearchedFaculty);
+
+        //    HttpContext.Session.SetInt32("selectedFacultyID", selectedFacultyID);
+
+        //    while (SpecificFacultyReader.Read())
+        //    {
+
+        //        FacultySearchList.Add(new Faculty
+        //        {
+        //            FacultyFirst = SpecificFacultyReader["FacultyFirst"].ToString(),
+        //            FacultyLast = SpecificFacultyReader["FacultyLast"].ToString(),
+
+        //        });
+        //    }
+
+
+        //    SqlDataReader FacultyReader = DBClass.FacultyReader();
+
+        //    while (FacultyReader.Read())
+        //    {
+
+        //        FacultyList.Add(new Faculty
+        //        {
+        //            FacultyID = Int32.Parse(FacultyReader["FacultyID"].ToString()),
+        //            FacultyFirst = FacultyReader["FacultyFirst"].ToString(),
+        //            FacultyLast = FacultyReader["FacultyLast"].ToString()
+
+        //        });
+
+        //    }
+
+        //    return Page();
+
+        //}
+
+        public IActionResult OnPostPage()
         {
-            ModelState.Clear();  
-           
-                // Get student's email from session data
-                string username = HttpContext.Session.GetString("Username");
 
-                // Get studentID based on email
-                SqlDataReader studentIDReader = DBClass.GetStudentID(username);
-                while (studentIDReader.Read())
-                {
-                    currentStudentID = Int32.Parse(studentIDReader["StudentID"].ToString());
-                }   
-                studentIDReader.Close();
-
-                if (DBClass.StudentQueueExists(currentStudentID, selectedOfficeHoursID) == true)
-                {
-                    ModelState.AddModelError(string.Empty, "You have already signed up for these office hours. Please click confirm again to continue.");
-                    return Page();
-                }
-                else
-                {
-
-                // Add student to queue
-                NewQueue.StudentID = currentStudentID;
-                NewQueue.OfficeHoursID = selectedOfficeHoursID;
-                NewQueue.MeetingPurpose = Purpose;
-                NewQueue.QueuePosition = QueuePosition;
-                DBClass.InsertQueue(NewQueue, selectedOfficeHoursID);
-
-
-                // Redirect to Queue page
-                return RedirectToPage("/StudentPages/StudentHome");
-                }
-            
+            return RedirectToPage("/StudentPages/OfficeHourSignUp");
         }
+        
     }
 
 }

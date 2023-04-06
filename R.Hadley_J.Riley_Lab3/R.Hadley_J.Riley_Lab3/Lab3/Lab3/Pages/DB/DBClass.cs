@@ -35,7 +35,24 @@ namespace Lab3.Pages.DB
             return tempReader;
         }
 
+        public static SqlDataReader SpecificFacultyClassesReader(int facultyid)
+        {
+            LabDBConnection.Close();
+            SqlCommand cmdSpecFacultyClassRead = new SqlCommand();
+            cmdSpecFacultyClassRead.Connection = LabDBConnection;
+            cmdSpecFacultyClassRead.Connection.ConnectionString = LabDBConnString;
+            cmdSpecFacultyClassRead.CommandText = "SELECT Class.ClassID, Class.ClassName, Class.ClassSection, Faculty.FacultyID, Faculty.FacultyFirst, Faculty.FacultyLast " +
+                "FROM Faculty " +
+                "JOIN FacultySchedule ON FacultySchedule.FacultyID = Faculty.FacultyID " +
+                "JOIN Class ON FacultySchedule.ClassID = Class.ClassID " +
+                "WHERE Faculty.FacultyID = @FacultyID;";
+            cmdSpecFacultyClassRead.Parameters.AddWithValue("@FacultyID", facultyid);
+            cmdSpecFacultyClassRead.Connection.Open();
+            SqlDataReader tempReader = cmdSpecFacultyClassRead.ExecuteReader();
 
+            return tempReader;
+
+        }
         public static void DeleteQueueRowsByUsername(string username)
         {
             using (SqlConnection connection = new SqlConnection(LabDBConnString))
@@ -53,7 +70,24 @@ namespace Lab3.Pages.DB
 
         }
 
+        public static SqlDataReader SearchedFacultyReader(string facultyName)
+        {
+            LabDBConnection.Close();
 
+            SqlCommand cmdSpecFacultyRead = new SqlCommand();
+            cmdSpecFacultyRead.Connection = LabDBConnection;
+            cmdSpecFacultyRead.Connection.ConnectionString = LabDBConnString;
+            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, Faculty.FacultyID " +
+                "FROM Faculty WHERE Faculty.FacultyFirst LIKE '%' + @FacultyName + '%' OR Faculty.FacultyLast LIKE '%' + @FacultyName + " +
+                "'%' OR Faculty.FacultyFirst + ' ' + Faculty.FacultyLast LIKE '%' + @FacultyName + '%'";
+
+            cmdSpecFacultyRead.Parameters.AddWithValue("@FacultyName", facultyName);
+
+            cmdSpecFacultyRead.Connection.Open();
+            SqlDataReader tempReader = cmdSpecFacultyRead.ExecuteReader();
+
+            return tempReader;
+        }
 
         // Reads the data in the faculty table
         public static SqlDataReader FacultyReader()
@@ -464,7 +498,7 @@ namespace Lab3.Pages.DB
             SqlCommand cmdSpecOfficeHoursRead = new SqlCommand();
             cmdSpecOfficeHoursRead.Connection = LabDBConnection;
             cmdSpecOfficeHoursRead.Connection.ConnectionString = LabDBConnString;
-            cmdSpecOfficeHoursRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, " +
+            cmdSpecOfficeHoursRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, Faculty.FacultyID, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, " +
                 "OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, Faculty.OfficeLocation FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID " +
                 "WHERE Faculty.FacultyID = @FacultyID " +
                 "AND OfficeHours.OfficeHoursID = @OfficeHoursID;";

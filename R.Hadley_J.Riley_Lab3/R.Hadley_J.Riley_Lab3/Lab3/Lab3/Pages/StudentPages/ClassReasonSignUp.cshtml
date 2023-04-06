@@ -3,10 +3,9 @@
 @using System.Data.SqlClient;
 @using Lab3.Pages.DB
 @using Microsoft.AspNetCore.Http
-@model Lab3.Pages.StudentPages.SignUpModel
+@model Lab3.Pages.StudentPages.ClassReasonSignUpModel
 @{
 }
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -151,81 +150,40 @@
     </style>
 </head>
 
-@*Redirect buttons*@
-<div class="text-center">
-    <h1 class="display-8">Sign Up</h1>
-    <br />
-    <a class="btn btn-primary" href="/StudentPages/StudentHome">Student Home</a>
-    <a class="btn btn-primary" href="/StudentPages/Profile">Profile</a>
-    <br />
-    <br />
-    <br />
-    <br />
-</div>
 
-@*<form asp-page-handler="AddToQueue" method="post">
-<select id="meeting-purpose" name="Purpose" class="form-select">
-    <option value="" disabled selected>Meeting Purpose</option>
-    <option value="Exam Review">Exam Review</option>
-    <option value="Assignment Review">Assignment Review</option>
-    <option value="General Advising">General Advising</option>
-    <option value="Personal Reasons">Personal Reasons</option>
-    <option value="ODS Accomodations">ODS Accomodations</option>
-</select>
-</form>*@
 
-<form asp-page-handler="FacultySelect" method="post">
 
-    <br />
 
-    <label for="SelectedFaculty-search">Search for Faculty</label>
-    <input asp-for="SearchedFaculty" type="text" id="SelectedFaculty-search" list="FacultyList" placeholder="Type to Search for a Faculty Member">
-    <datalist id="FacultyList">
-        <option selected>Select Professor</option>
-        @{
-            foreach (var faculty in Model.FacultyList)
-            {
-                <option value="@faculty.FacultyFirst @faculty.FacultyLast">@faculty.FacultyFirst @faculty.FacultyLast</option>              
-            }
+    <select id="class" name="Class" class="form-select">
+        @foreach (var cls in Model.ClassList)
+        {
+            <option value="" disabled selected> Class Selection</option>
+            <option value="@cls.ClassID">@cls.ClassName</option>
         }
-    </datalist>
-    </input>    
-    <button class="btn btn-outline-success" type="submit">Search</button>
+    </select>
+     </br>
+    </br>
+<form asp-page-handler="AddToQueue" method="post">
+    <select id="meeting-purpose" name="Purpose" class="form-select">
+        <option value="" disabled selected>Meeting Purpose</option>
+        <option value="Exam Review">Exam Review</option>
+        <option value="Assignment Review">Assignment Review</option>
+        <option value="General Advising">General Advising</option>
+        <option value="Personal Reasons">Personal Reasons</option>
+        <option value="ODS Accomodations">ODS Accomodations</option>
+    </select>
+    </br>
+    </br>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Faculty</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var faculty in Model.FacultySearchList)
-        {
-            <tr>
-                <td>@faculty.FacultyFirst @faculty.FacultyLast</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <form method="post" asp-page-handler="Page">
-                            <input type="hidden" asp-for="selectedFacultyID" name="facultyID" value="@faculty.FacultyID" />
-                            <button type="submit" class="btn btn-outline-primary btn-purple">Select</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
 
-    <!-- In your other Razor page where you want to retrieve the session variable -->
-    @{
-        int selectedFacultyID = HttpContext.Session.GetInt32("selectedFacultyID") ?? 0;
-        // Use the selectedFacultyID variable in your code
-    }
 
-</table>
 
-@*@if (ViewData.ModelState.IsValid == false)
+
+
+
+@if (ViewData.ModelState.IsValid == false)
 {
     <div class="alert alert-danger">
         <ul>
@@ -235,20 +193,4 @@
             }
         </ul>
     </div>
-}*@
-
-
-
-
-
-
-
-
-
-
-@*<form method="post" asp-page-handler="AddToQueue">                         
-<input type="hidden" asp-for="selectedFacultyID" name="facultyID" value="@SpecificOfficeHours.FacultyID" />
-<input type="hidden" asp-for="selectedOfficeHoursID" value="@SpecificOfficeHours.OfficeHoursID" />
-<input type="hidden" asp-for="Purpose" value="meeting-purpose" />
-<button type="submit" class="btn btn-outline-primary btn-purple">Select</button>
-</form>*@
+}

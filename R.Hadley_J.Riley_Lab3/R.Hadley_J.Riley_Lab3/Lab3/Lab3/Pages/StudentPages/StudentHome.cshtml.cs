@@ -17,7 +17,6 @@ namespace Lab3.Pages.StudentPages
         public StudentHomeModel()
         {
             StudentList = new List<Student>();
-
             SpecificQueueList = new List<SpecificQueue>();
         }
 

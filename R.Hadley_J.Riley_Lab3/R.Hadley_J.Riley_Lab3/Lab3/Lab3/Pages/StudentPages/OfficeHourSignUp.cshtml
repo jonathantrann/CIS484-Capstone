@@ -3,10 +3,9 @@
 @using System.Data.SqlClient;
 @using Lab3.Pages.DB
 @using Microsoft.AspNetCore.Http
-@model Lab3.Pages.StudentPages.SignUpModel
+@model Lab3.Pages.StudentPages.OfficeHourSignUpModel
 @{
 }
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -163,52 +162,31 @@
     <br />
 </div>
 
-@*<form asp-page-handler="AddToQueue" method="post">
-<select id="meeting-purpose" name="Purpose" class="form-select">
-    <option value="" disabled selected>Meeting Purpose</option>
-    <option value="Exam Review">Exam Review</option>
-    <option value="Assignment Review">Assignment Review</option>
-    <option value="General Advising">General Advising</option>
-    <option value="Personal Reasons">Personal Reasons</option>
-    <option value="ODS Accomodations">ODS Accomodations</option>
-</select>
-</form>*@
-
-<form asp-page-handler="FacultySelect" method="post">
-
-    <br />
-
-    <label for="SelectedFaculty-search">Search for Faculty</label>
-    <input asp-for="SearchedFaculty" type="text" id="SelectedFaculty-search" list="FacultyList" placeholder="Type to Search for a Faculty Member">
-    <datalist id="FacultyList">
-        <option selected>Select Professor</option>
-        @{
-            foreach (var faculty in Model.FacultyList)
-            {
-                <option value="@faculty.FacultyFirst @faculty.FacultyLast">@faculty.FacultyFirst @faculty.FacultyLast</option>              
-            }
-        }
-    </datalist>
-    </input>    
-    <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Faculty</th>
-            <th></th>
+            <th>OfficeHoursDays</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Office Location</th>
+            <th>Sign Up</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var faculty in Model.FacultySearchList)
+        @foreach (var SpecificOfficeHours in Model.SpecificOfficeHoursList)
         {
             <tr>
-                <td>@faculty.FacultyFirst @faculty.FacultyLast</td>
+                <td>@SpecificOfficeHours.OfficeHoursDays</td>
+                <td>@SpecificOfficeHours.OHStartTime</td>
+                <td>@SpecificOfficeHours.OHEndTime</td>
+                <td>@SpecificOfficeHours.OfficeLocation</td>
                 <td>
                     <div class="btn-group" role="group">
-                        <form method="post" asp-page-handler="Page">
-                            <input type="hidden" asp-for="selectedFacultyID" name="facultyID" value="@faculty.FacultyID" />
+                        <form method="post" asp-page-handler="SingleSelect">
+
+                            <input type="hidden" asp-for="selectedOfficeHoursID" value="@SpecificOfficeHours.OfficeHoursID" />
+                            <input type="hidden" asp-for="Purpose" value="meeting-purpose" />
                             <button type="submit" class="btn btn-outline-primary btn-purple">Select</button>
                         </form>
                     </div>
@@ -216,39 +194,10 @@
             </tr>
         }
     </tbody>
-
-    <!-- In your other Razor page where you want to retrieve the session variable -->
-    @{
-        int selectedFacultyID = HttpContext.Session.GetInt32("selectedFacultyID") ?? 0;
-        // Use the selectedFacultyID variable in your code
-    }
-
 </table>
 
-@*@if (ViewData.ModelState.IsValid == false)
-{
-    <div class="alert alert-danger">
-        <ul>
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <li>@error.ErrorMessage</li>
-            }
-        </ul>
-    </div>
-}*@
-
-
-
-
-
-
-
-
-
-
-@*<form method="post" asp-page-handler="AddToQueue">                         
-<input type="hidden" asp-for="selectedFacultyID" name="facultyID" value="@SpecificOfficeHours.FacultyID" />
-<input type="hidden" asp-for="selectedOfficeHoursID" value="@SpecificOfficeHours.OfficeHoursID" />
-<input type="hidden" asp-for="Purpose" value="meeting-purpose" />
-<button type="submit" class="btn btn-outline-primary btn-purple">Select</button>
-</form>*@
+<!-- In your other Razor page where you want to retrieve the session variable -->
+@{
+    int selectedOfficeHoursID = HttpContext.Session.GetInt32("selectedOfficeHoursID") ?? 0;
+    // Use the selectedFacultyID variable in your code
+}
