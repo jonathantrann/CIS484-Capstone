@@ -64,7 +64,7 @@
             text-align: center;
             background-color: white;
             margin: 100px 150px 0px 150px;
-            padding: 50px;
+            /*padding: 50px;*/
             font-size: 50px;
         }
 
@@ -72,21 +72,32 @@
             grid-column: 1/13;
             text-align: center;
             background-color: white;
-            margin: 0px 150px 0px 150px;
-            padding: 50px;
+            margin: -50px 150px 0px 150px;
+            /*padding: -50px;*/
+            align-items: center;
         }
 
+        /*.textentry2 {
+                    grid-column: 1/13;
+                    text-align: center;
+                    background-color: white;
+                    margin: -100px 150px 0px 150px;
+                    padding: -50px;
+                    align-items: center;*/
+        /*}*/
         .submit {
             grid-column: 1/13;
             background-color: white;
-            margin: 0px 150px 0px 100px;
+            margin: 0px 150px 0px -150px;
             text-align: left;
-            padding: 50px 0px 0px 0px;
+            /*padding: 10px 0px 0px 0px;*/
+            /*align-items: left;*/
         }
 
         .btn-primary {
             background-color: #220d59;
             border: #220d59;
+            margin: 0px 150px 0px 150px;
             width: 400px;
             font-size: 20px;
         }
@@ -98,9 +109,9 @@
         .create {
             grid-column: 1/13;
             background-color: white;
-            margin: 0px 150px 0px 0px;
+            margin: 0px 150px 0px -150px;
             text-align: left;
-            padding: 0px 0px 0px 0px;
+            /*padding: 0px 0px 0px 0px;*/
         }
 
         a:link {
@@ -116,6 +127,7 @@
             color: #fff;
             text-decoration-style: double;
         }
+
     </style>
 </head>
 <body>
@@ -124,30 +136,48 @@
             Student Login
         </div>
 
+        <div class="textentry">
+            <form asp-page="StudentLogin">
 
-        <form asp-page="StudentLogin">
+                <input asp-for="Username" class="form-control" placeholder="Username" />
+                <br />
+                <input asp-for="Password" class="form-control" type="password" placeholder="Password" />
+                <br />
+                <div class="submit">
+                    <input type="submit" class="btn btn-primary" />
+                </div>
+            </form>
+            @*</div>
+            <div class="textentry2">
+            <form asp-page="StudentLogin">
+            <input asp-for="Password" type="password" placeholder="Password" style="width: 400px; " />
+            <br />
 
-            <input asp-for="Username" class="form-control" placeholder="Username" style="width: 400px; " />
-            <br />
-            <input asp-for="Password" class="form-control" type="password" placeholder="Password" style="width: 400px; " />
-            <br />
+            </form>
+            </div>
+            <div class="submit">
+            <form asp-page="StudentLogin">
             <input type="submit" class="btn btn-primary" />
-        </form>
-        <br />
-        <div class="create">
-            <a href="/Login/CreateStudent"><button type="button" class="btn btn-primary btn-lg">Create Account</button></a>
+            </form>
+            </div>
+            </div>*@
+
+            <br />
+            <div class="create">
+                <a href="/Login/CreateStudent"><button type="button" class="btn btn-primary btn-lg">Create Account</button></a>
+            </div>
+            @{
+                if (HttpContext.Session.GetString("Username") != null)
+                {
+                    <p class="text-success">@ViewData["LoginMessage"]</p>
+
+                }
+                else
+                {
+                    <p class="text-danger">@ViewData["LoginMessage"]</p>
+                }
+            }
         </div>
-        @{
-            if (HttpContext.Session.GetString("Username") != null)
-            {
-                <p class="text-success">@ViewData["LoginMessage"]</p>
-
-            }
-            else
-            {
-                <p class="text-danger">@ViewData["LoginMessage"]</p>
-            }
-        }
-
+    </div>
 </body>
 </html>

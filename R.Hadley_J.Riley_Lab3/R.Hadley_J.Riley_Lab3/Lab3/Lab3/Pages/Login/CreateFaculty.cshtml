@@ -32,15 +32,6 @@
             height: auto;
         }
 
-        .containerpage {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-auto-rows: minmax(100px, auto);
-            background-image: url(images/cob-building.png);
-            background-size: cover;
-            height: 100vh;
-        }
-
         .title {
             grid-column: 1/13;
             text-align: center;
@@ -48,42 +39,6 @@
             margin: auto;
             padding: 50px;
             font-size: 50px;
-        }
-
-        .textentry {
-            grid-column: 1/13;
-            text-align: center;
-            background-color: white;
-            margin: 0px 150px 0px 150px;
-            padding: 50px;
-        }
-
-        .submit {
-            grid-column: 1/13;
-            background-color: white;
-            margin: 0px 150px 0px 100px;
-            text-align: left;
-            padding: 50px 0px 0px 0px;
-        }
-
-        .btn-primary {
-            background-color: #220d59;
-            border: #220d59;
-            width: 400px;
-            font-size: 20px;
-        }
-
-            .btn-primary:hover {
-                background-color: #4219a9;
-            }
-
-        .create {
-            grid-column: 2/14;
-            background-color: white;
-            margin: 0px 0px 0px 0px;
-            text-align: left;
-            padding: 0px 0px 0px 0px;
-            float: right;
         }
 
         a:link {
@@ -100,9 +55,48 @@
             text-decoration-style: double;
         }
 
-        .textbox {
-            float: left;
+        .padding {
+            padding-top: 25px;
         }
+
+        .btn-primary {
+            background-color: #220d59;
+            border: #220d59;
+            width: 200px;
+            font-size: 20px;
+        }
+
+            .btn-primary:hover {
+                background-color: #4219a9;
+            }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #220d59;
+            border: #220d59;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 20px;
+        }
+
+
+            .form-container input {
+                margin: 10px;
+                padding: 0px;
+                width: 200px;
+            }
+
+            .form-container button {
+                background-color: #220d59;
+                border: #220d59;
+                border-radius: 5px;
+                padding: -10px 20px 0px 0px;
+                margin: 10px;
+                cursor: pointer;
+            }
     </style>
 </head>
 <body>
@@ -111,45 +105,45 @@
             Faculty SignUp
         </div>
 
-<form method="post">
-    <div class="textbox">
-    <div>
-        <label for="FacultyFirst">First Name:</label>
-        <input type="text" class="form-control" id="FacultyFirst" name="NewFaculty.FacultyFirst" />
-    </div>
-    <div>
-        <label for="FacultyLast">Last Name:</label>
+        <form method="post">
+            <div class="textbox">
+                <div>
+                    <label for="FacultyFirst">First Name:</label>
+                    <input type="text" class="form-control" id="FacultyFirst" name="NewFaculty.FacultyFirst" />
+                </div>
+                <div>
+                    <label for="FacultyLast">Last Name:</label>
                     <input type="text" class="form-control" id="FacultyLast" name="NewFaculty.FacultyLast" />
-    </div>
-    <div>
-        <label for="FacultyEmailAddress">Email Address:</label>
+                </div>
+                <div>
+                    <label for="FacultyEmailAddress">Email Address:</label>
                     <input type="email" class="form-control" id="FacultyEmailAddress" name="NewFaculty.FacultyEmailAddress" />
-    </div>
-    <div>
-        <label for="FacultyPhoneNumber">Phone Number:</label>
+                </div>
+                <div>
+                    <label for="FacultyPhoneNumber">Phone Number:</label>
                     <input type="tel" class="form-control" id="FacultyPhoneNumber" name="NewFaculty.FacultyPhoneNumber" />
-    </div>
-    <div>
-        <label for="OfficeLocation">Office Location:</label>
+                </div>
+                <div>
+                    <label for="OfficeLocation">Office Location:</label>
                     <input type="tel" class="form-control" id="OfficeLocation" name="NewFaculty.OfficeLocation" />
-    </div>
-    <div>
-        <label for="Username">Username:</label>
+                </div>
+                <div>
+                    <label for="Username">Username:</label>
                     <input type="text" class="form-control" id="Username" name="NewFaculty.Username" />
-    </div>
-    <div>
-        <label for="autofill-input" hidden>Type:</label>
-        <input type="text" name="NewFaculty.type" value="I" readonly hidden />
-    </div>
-    </div>
-    <br />
-    <div class="create">
+                </div>
+                <div>
+                    <label for="autofill-input" hidden>Type:</label>
+                    <input type="text" name="NewFaculty.type" value="I" readonly hidden />
+                </div>
+            </div>
+            <br />
+            <div class="create">
 
                 <button type="button" class="btn btn-primary" onclick="populateFields()">Populate</button>
                 <button type="button" class="btn btn-primary" onclick="clearFields()">Clear</button>
                 <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</form>
+            </div>
+        </form>
 </body>
 <script>
     function populateFields() {
@@ -160,7 +154,7 @@
         document.getElementById("OfficeLocation").value = "Showker 5015";
         document.getElementById("Username").value = "janedoe";
     }
-    
+
     function clearFields() {
         document.getElementById("FacultyFirst").value = "";
         document.getElementById("FacultyLast").value = "";

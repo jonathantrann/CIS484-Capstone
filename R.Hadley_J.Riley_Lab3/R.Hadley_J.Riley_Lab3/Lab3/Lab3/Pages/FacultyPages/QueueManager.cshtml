@@ -5,7 +5,137 @@
 @model Lab3.Pages.FacultyPages.QueueManagerModel
 @{
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Home</title>
 
+    <!-- Bootstrap v5.1.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="screen">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@1,300&family=Cinzel:wght@400;700&family=Nanum+Gothic&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 3px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .containerpage {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+        }
+
+        .title {
+            grid-column: 1/13;
+            text-align: center;
+            padding: 70px 0px 25px 0px;
+            font-size: 60px;
+        }
+
+        .logo {
+            grid-column: 1/13;
+            text-align: center;
+            padding: 25px 0px 50px 0px;
+        }
+
+        .profile {
+            grid-column: 4/6;
+            text-align: center;
+            /* padding: 50px; */
+        }
+
+        .signup {
+            grid-column: 6/8;
+            text-align: center;
+            /* padding: 50px; */
+        }
+
+        .logout {
+            grid-column: 8/10;
+            text-align: center;
+            /* padding: 50px; */
+        }
+
+        .container2 {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+        }
+
+        .subhead {
+            grid-column: 1/13;
+            text-align: center;
+            font-size: 40px;
+            padding: 100px 0px 80px 0px;
+        }
+
+        .day {
+            grid-column: 2/4;
+            text-align: center;
+        }
+
+        .queue {
+            grid-column: 4/6;
+            text-align: center;
+        }
+
+        .prof {
+            grid-column: 6/8;
+            text-align: center;
+        }
+
+        .room {
+            grid-column: 8/10;
+            text-align: center;
+        }
+
+        .command {
+            grid-column: 10/12;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #220d59;
+            border: #220d59;
+            width: 400px;
+            font-size: 20px;
+        }
+
+            .btn-primary:hover {
+                background-color: #4219a9;
+            }
+
+        a:link {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #fff;
+        }
+
+        a:hover {
+            color: #fff;
+            text-decoration-style: double;
+        }
+    </style>
+</head>
 @*<style>
     body {
         background-color: #CBC3E3;
@@ -22,85 +152,82 @@
         }
 </style>*@
 
+<body>
+    <div class="text-center">
+        <h1 class="display-8">Queue Manager</h1>
+        <br />
+        <a class="btn btn-primary" href="/FacultyPages/FacultyHome">Faculty Home</a>
+        <a class="btn btn-primary" href="/Index">Logout</a>
+        <br />
+        <br />
+        <h3 class="display-8">Current Queue</h3>
+    </div>
 
-<div class="text-center">
-    <h1 class="display-8">Queue Manager</h1>
+
+
     <br />
-    <a class="btn btn-primary" href="/FacultyPages/FacultyHome">Faculty Home</a>
-    <a class="btn btn-primary" href="/Index">Logout</a>
-    <br />
-    <br />
-    <h3 class="display-8">Current Queue</h3>
-</div>
+
+    <form asp-page-handler="SingleSelect" method="post">
+        <select asp-for="SelectedOfficeHours" class="form-select">
+            <option selected>Select Office Hours</option>
+            @foreach (var officehours in Model.SelectOfficeHoursList)
+            {
+                <option value="@officehours.OfficeHoursID">@officehours.OfficeHoursDays from @officehours.OHStartTime to @officehours.OHEndTime</option>
+            }
+        </select>
+        <br />
+        <button class="btn btn-primary">Confirm</button>
+    </form>
+
+    @*Shows the current total students in queue*@
+
+    @{
+        var counter = Model.SpecificQueueList.Count;
+    }
+    @string.Format("Total Students in Queue = {0}", counter)
 
 
-
-<br />
-
-<form asp-page-handler="SingleSelect" method="post">
-    <select asp-for="SelectedOfficeHours" class="form-select">
-        <option selected>Select Office Hours</option>
-        @foreach(var officehours in Model.SelectOfficeHoursList)
-        {
-            <option value="@officehours.OfficeHoursID">@officehours.OfficeHoursDays from @officehours.OHStartTime to @officehours.OHEndTime</option>
-        }
-    </select>
-    <br />
-    <button class ="btn btn-primary">Confirm</button>
-</form>
-
-@*Shows the current total students in queue*@
-
-@{
-    var counter = Model.SpecificQueueList.Count;
-}
-@string.Format("Total Students in Queue = {0}", counter)
-
-
-@*Displays the office hours queue*@
-<table class="table">
-    <thead>
-        <tr>
-
-            <th>Student</th>
-            <th>Days</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Professor</th>
-            <th>Waiting Room</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var queue in Model.SpecificQueueList)
-        {
+    @*Displays the office hours queue*@
+    <table class="table">
+        <thead>
             <tr>
 
-                <td>@queue.StudentFirst @queue.StudentLast</td>
-                <td>@queue.OfficeHoursDays</td>
-                <td>@queue.OHStartTime</td>
-                <td>@queue.OHEndTime</td>
-                <td>@queue.FacultyFirst @queue.FacultyLast</td>
-                <td>@queue.WaitingRoom</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary">Edit</button>
-                        <button type="button" class="btn btn-outline-danger">Delete</button>
-                        <form asp-page-handler="NotifyStudent" method="post">
-                            <input type="hidden" name="queueId" value="@queue.QueueID" />
-                            <button type="submit" class="btn btn-success">Notify</button>
-                        </form>
-
-
-
-                    </div>
-                </td>
-
+                <th>Student</th>
+                <th>Days</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Professor</th>
+                <th>Waiting Room</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var queue in Model.SpecificQueueList)
+            {
+                <tr>
 
-    </tbody>
-</table>
+                    <td>@queue.StudentFirst @queue.StudentLast</td>
+                    <td>@queue.OfficeHoursDays</td>
+                    <td>@queue.OHStartTime</td>
+                    <td>@queue.OHEndTime</td>
+                    <td>@queue.FacultyFirst @queue.FacultyLast</td>
+                    <td>@queue.WaitingRoom</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary">Edit</button>
+                            <button type="button" class="btn btn-outline-danger">Delete</button>
 
 
-<br />
-<br />
+
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+
+    <br />
+    <br />
+</body>
+</html>
