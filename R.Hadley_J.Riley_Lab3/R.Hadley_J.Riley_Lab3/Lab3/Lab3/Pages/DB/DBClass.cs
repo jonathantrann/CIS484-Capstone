@@ -10,7 +10,7 @@ namespace Lab3.Pages.DB
         public static SqlConnection LabDBConnection = new SqlConnection();
 
         // Connection String
-        private static readonly String? LabDBConnString = "Server=LocalHost;Database=Lab3;Trusted_Connection=True";
+        private static readonly String? LabDBConnString = "Server=LocalHost;Database=Lab 3;Trusted_Connection=True";
 
         // Connection at the Class Level
         public static SqlConnection AuthDBConnection = new SqlConnection();
@@ -53,19 +53,105 @@ namespace Lab3.Pages.DB
             return tempReader;
 
         }
-        public static void DeleteQueueRowsByUsername(string username)
+        //public static void DeleteQueueRowsByUsername(string username)
+        //{
+        //    using (SqlConnection connection = new SqlConnection(LabDBConnString))
+        //    using (SqlCommand command = new SqlCommand("DELETE FROM Queue " +
+        //    "WHERE OfficeHoursID IN ( " +
+        //    "SELECT OfficeHoursID FROM OfficeHours " +
+        //    "JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID " +
+        //    "JOIN Student ON Queue.StudentID = Student.StudentID " +
+        //    "WHERE Student.Username = @username);", connection))
+        //    {
+        //        command.Parameters.AddWithValue("@Username", username);
+        //        connection.Open();
+        //        command.ExecuteNonQuery();
+        //    }
+
+        //}
+
+        public static void DeleteSpecificQueueRow(string username, string OHStartTime, string OHEndTime, string FacultyLast)
+
         {
+
             using (SqlConnection connection = new SqlConnection(LabDBConnString))
-            using (SqlCommand command = new SqlCommand("DELETE FROM Queue " +
-            "WHERE OfficeHoursID IN ( " +
-            "SELECT OfficeHoursID FROM OfficeHours " +
-            "JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID " +
-            "JOIN Student ON Queue.StudentID = Student.StudentID " +
-            "WHERE Student.Username = @username);", connection))
+
             {
-                command.Parameters.AddWithValue("@Username", username);
+
                 connection.Open();
-                command.ExecuteNonQuery();
+
+                string query = "DELETE FROM Queue WHERE OfficeHoursID IN (SELECT OfficeHours.OfficeHoursID FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON OfficeHours.OfficeHoursID = Queue.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username AND (@OHStartTime IS NULL OR OfficeHours.OHStartTime = @OHStartTime) AND (@OHEndTime IS NULL OR OfficeHours.OHEndTime = @OHEndTime) AND (@FacultyLast IS NULL OR Faculty.FacultyLast = @FacultyLast));\r\n";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+
+                {
+
+                    command.Parameters.AddWithValue("@Username", username);
+
+
+
+                    if (string.IsNullOrEmpty(OHStartTime))
+
+                    {
+
+                        command.Parameters.AddWithValue("@OHStartTime", DBNull.Value);
+
+                    }
+
+                    else
+
+                    {
+
+                        command.Parameters.AddWithValue("@OHStartTime", OHStartTime);
+
+                    }
+
+
+
+                    if (string.IsNullOrEmpty(OHEndTime))
+
+                    {
+
+                        command.Parameters.AddWithValue("@OHEndTime", DBNull.Value);
+
+                    }
+
+                    else
+
+                    {
+
+                        command.Parameters.AddWithValue("@OHEndTime", OHEndTime);
+
+                    }
+
+
+
+                    if (string.IsNullOrEmpty(FacultyLast))
+
+                    {
+
+                        command.Parameters.AddWithValue("@FacultyLast", DBNull.Value);
+
+                    }
+
+                    else
+
+                    {
+
+                        command.Parameters.AddWithValue("@FacultyLast", FacultyLast);
+
+                    }
+
+
+
+                    command.ExecuteNonQuery();
+
+
+
+
+
+                }
+
             }
 
         }

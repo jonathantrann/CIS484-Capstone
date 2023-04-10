@@ -215,6 +215,10 @@
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-outline-primary">Edit</button>
                             <button type="button" class="btn btn-outline-danger">Delete</button>
+                            <form asp-page-handler="NotifyStudent" method="post">
+                                <input type="hidden" name="queueId" value="@queue.QueueID" />
+                                <button type="submit" class="btn btn-primary ">Notify</button>
+                            </form>
 
 
 

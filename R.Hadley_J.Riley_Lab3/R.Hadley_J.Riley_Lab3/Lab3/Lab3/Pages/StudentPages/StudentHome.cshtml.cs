@@ -13,6 +13,11 @@ namespace Lab3.Pages.StudentPages
         public List<SpecificQueue> SpecificQueueList;
         // Create a list for students
         public List<Student> StudentList { get; set; }
+        //public string Username { get; set; }
+        //public string OHStartTime { get; set; }
+        //public string OHEndTime { get; set; }
+        //public string FacultyFirst { get; set; }
+        //public string FacultyLast { get; set; }
 
         public StudentHomeModel()
         {
@@ -56,6 +61,22 @@ namespace Lab3.Pages.StudentPages
 
                 return Page();
 
+            }
+        }
+        public IActionResult OnPostCancelHandler(string ohStartTime, string ohEndTime, string facultyLast)
+        {
+            var username = HttpContext.Session.GetString("Username");
+
+            if (username == null)
+            {
+                return new RedirectToPageResult("/Login/StudentLogin");
+            }
+            else
+            {
+                //Delete the specific queue row from the database
+                DBClass.DeleteSpecificQueueRow(username, ohStartTime, ohEndTime, facultyLast);
+
+                return RedirectToPage("/StudentPages/StudentHome");
             }
         }
     }
