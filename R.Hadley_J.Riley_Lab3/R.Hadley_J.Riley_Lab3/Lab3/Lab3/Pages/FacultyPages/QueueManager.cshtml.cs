@@ -13,6 +13,8 @@ namespace Lab3.Pages.FacultyPages
         [BindProperty] public int SelectedOfficeHours { get; set; }
         public List<SpecificQueue> SpecificQueueList { get; set; }
         public List<SpecificOfficeHours> SelectOfficeHoursList { get; set; }
+        public int currentPosition { get; set; }
+        public int newPosition { get; set; }
 
         public QueueManagerModel()
         {
@@ -100,10 +102,10 @@ namespace Lab3.Pages.FacultyPages
             }
             return Page();
         }
-        public IActionResult OnPostNotifyStudent(int queueId)
+        public IActionResult OnPostNotifyStudent(int queueId, int currentPosition, int newPostion)
         {
-            DBClass.NotifyStudent(queueId);
-            return Page();
+            DBClass.NotifyStudent(queueId, currentPosition, newPostion);
+            return RedirectToPage("/FacultyPages/QueueManager");
         }
     }
 }

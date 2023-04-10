@@ -63,21 +63,21 @@ namespace Lab3.Pages.StudentPages
 
             }
         }
-        public IActionResult OnPostCancelHandler(string ohStartTime, string ohEndTime, string facultyLast)
+        public IActionResult OnPostCancelHandler(string username, string ohStartTime, string ohEndTime, string facultyLast)
         {
-            var username = HttpContext.Session.GetString("Username");
+            //var username = HttpContext.Session.GetString("Username");
 
-            if (username == null)
-            {
-                return new RedirectToPageResult("/Login/StudentLogin");
-            }
-            else
-            {
+            //if (username == null)
+            //{
+            //    return new RedirectToPageResult("/Login/StudentLogin");
+            //}
+            //else
+            //{
                 //Delete the specific queue row from the database
                 DBClass.DeleteSpecificQueueRow(username, ohStartTime, ohEndTime, facultyLast);
 
                 return RedirectToPage("/StudentPages/StudentHome");
-            }
+            //}
         }
     }
 }
