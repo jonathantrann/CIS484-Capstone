@@ -18,6 +18,9 @@ namespace Lab3.Pages.FacultyPages
         {
             ModelState.Clear();
 
+            NewOfficeHours.IsRecurring = Request.Form["NewOfficeHours.IsRecurring"] == "on";
+
+
             string username = HttpContext.Session.GetString("Username");
 
             SqlDataReader facultyIDReader = DBClass.GetFacultyID(username);

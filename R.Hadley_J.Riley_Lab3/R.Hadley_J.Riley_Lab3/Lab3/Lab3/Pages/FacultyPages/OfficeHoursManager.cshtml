@@ -210,6 +210,15 @@
             <input type="text" class="form-control" id="WaitingRoom" name="NewOfficeHours.WaitingRoom" />
         </div>
         <br />
+        <div class="form-group">
+            <label asp-for="NewOfficeHours.IsRecurring" class="control-label">Will This Be a Recurring Office Hour? </label>
+            <div>
+                <input asp-for="NewOfficeHours.IsRecurring" class="form-check-input" />
+                <span asp-validation-for="NewOfficeHours.IsRecurring" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <br />
         @*<button type="button" class="btn btn-primary" onclick="populateFields()">Populate</button>*@
         <button type="button" class="btn btn-primary" onclick="clearFields()">Clear</button>
         <button type="submit" class="btn btn-primary">Create Office Hours</button>

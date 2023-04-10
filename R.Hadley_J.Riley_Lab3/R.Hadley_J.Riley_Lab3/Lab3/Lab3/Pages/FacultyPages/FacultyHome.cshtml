@@ -172,6 +172,7 @@
             <th>Start Time</th>
             <th>End Time</th>
             <th>Waiting Room</th>
+            <th>Recurring Office Hour</th>
         </tr>
     </thead>
     <tbody>
@@ -182,6 +183,16 @@
                 <td>@officeHours.OHStartTime</td>
                 <td>@officeHours.OHEndTime</td>
                 <td>@officeHours.WaitingRoom</td>
+                <td>
+                    @if (officeHours.IsRecurring)
+                    {
+                        <span class="text-success">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="text-warning">No</span>
+                    }
+                </td>
             </tr>
         }
 

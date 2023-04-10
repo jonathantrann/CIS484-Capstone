@@ -48,7 +48,9 @@ namespace Lab3.Pages.FacultyPages
                     OfficeHoursDays = OfficeHoursReader["OfficeHoursDays"].ToString(),
                     OHStartTime = OfficeHoursReader["OHStartTime"].ToString(),
                     OHEndTime = OfficeHoursReader["OHEndTime"].ToString(),
-                    WaitingRoom = OfficeHoursReader["WaitingRoom"].ToString(),
+                    IsRecurring = bool.Parse(OfficeHoursReader["IsRecurring"].ToString()),
+                    WaitingRoom = OfficeHoursReader["WaitingRoom"].ToString()
+
 
                 });
             }
@@ -77,6 +79,7 @@ namespace Lab3.Pages.FacultyPages
                     OHStartTime = OfficeHoursReader["OHStartTime"].ToString(),
                     OHEndTime = OfficeHoursReader["OHEndTime"].ToString(),
                     WaitingRoom = OfficeHoursReader["WaitingRoom"].ToString(),
+                    IsRecurring = bool.Parse(OfficeHoursReader["IsRecurring"].ToString()),
                     FacultyID = Int32.Parse(OfficeHoursReader["FacultyID"].ToString())
                 });
             }

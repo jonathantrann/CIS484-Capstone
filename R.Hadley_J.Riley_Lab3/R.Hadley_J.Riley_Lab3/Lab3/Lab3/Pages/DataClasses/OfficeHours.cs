@@ -13,5 +13,7 @@
         public String? WaitingRoom { get; set; }
 
         public int FacultyID { get; set; }
+
+        public bool IsRecurring { get; set; }
     }
 }
