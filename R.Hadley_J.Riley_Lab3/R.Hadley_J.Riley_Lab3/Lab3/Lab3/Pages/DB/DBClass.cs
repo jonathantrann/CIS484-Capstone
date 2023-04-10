@@ -10,7 +10,7 @@ namespace Lab3.Pages.DB
         public static SqlConnection LabDBConnection = new SqlConnection();
 
         // Connection String
-        private static readonly String? LabDBConnString = "Server=LocalHost;Database=Lab 3;Trusted_Connection=True";
+        private static readonly String? LabDBConnString = "Server=LocalHost;Database=Lab3;Trusted_Connection=True";
 
         // Connection at the Class Level
         public static SqlConnection AuthDBConnection = new SqlConnection();
@@ -71,85 +71,39 @@ namespace Lab3.Pages.DB
         //}
 
         public static void DeleteSpecificQueueRow(string username, string OHStartTime, string OHEndTime, string FacultyLast)
-
         {
-
             using (SqlConnection connection = new SqlConnection(LabDBConnString))
-
             {
-
                 connection.Open();
-
                 string query = "DELETE FROM Queue WHERE OfficeHoursID IN (SELECT OfficeHours.OfficeHoursID FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON OfficeHours.OfficeHoursID = Queue.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username AND (@OHStartTime IS NULL OR OfficeHours.OHStartTime = @OHStartTime) AND (@OHEndTime IS NULL OR OfficeHours.OHEndTime = @OHEndTime) AND (@FacultyLast IS NULL OR Faculty.FacultyLast = @FacultyLast));\r\n";
-
                 using (SqlCommand command = new SqlCommand(query, connection))
-
                 {
-
                     command.Parameters.AddWithValue("@Username", username);
-
-
-
                     if (string.IsNullOrEmpty(OHStartTime))
-
                     {
-
                         command.Parameters.AddWithValue("@OHStartTime", DBNull.Value);
-
                     }
-
                     else
-
                     {
-
                         command.Parameters.AddWithValue("@OHStartTime", OHStartTime);
-
                     }
-
-
-
                     if (string.IsNullOrEmpty(OHEndTime))
-
                     {
-
                         command.Parameters.AddWithValue("@OHEndTime", DBNull.Value);
-
                     }
-
                     else
-
                     {
-
                         command.Parameters.AddWithValue("@OHEndTime", OHEndTime);
-
                     }
-
-
-
                     if (string.IsNullOrEmpty(FacultyLast))
-
                     {
-
                         command.Parameters.AddWithValue("@FacultyLast", DBNull.Value);
-
                     }
-
                     else
-
                     {
-
                         command.Parameters.AddWithValue("@FacultyLast", FacultyLast);
-
                     }
-
-
-
                     command.ExecuteNonQuery();
-
-
-
-
-
                 }
 
             }
@@ -433,7 +387,7 @@ namespace Lab3.Pages.DB
             SqlCommand cmdSpecFacultyRead = new SqlCommand();
             cmdSpecFacultyRead.Connection = LabDBConnection;
             cmdSpecFacultyRead.Connection.ConnectionString = LabDBConnString;
-            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, Faculty.OfficeLocation, OfficeHours.WaitingRoom FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID WHERE Faculty.FacultyID = @FacultyID";
+            cmdSpecFacultyRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, OfficeHours.OHStartTime, OfficeHours.OHEndTime, Faculty.OfficeLocation, OfficeHours.WaitingRoom, OfficeHours.IsRecurring FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID WHERE Faculty.FacultyID = @FacultyID";
 
             cmdSpecFacultyRead.Parameters.AddWithValue("@FacultyID", facultyid);
 
@@ -622,7 +576,7 @@ namespace Lab3.Pages.DB
             cmdSpecOfficeHoursRead.Connection = LabDBConnection;
             cmdSpecOfficeHoursRead.Connection.ConnectionString = LabDBConnString;
             cmdSpecOfficeHoursRead.CommandText = "SELECT Faculty.FacultyFirst, Faculty.FacultyLast, Faculty.FacultyID, OfficeHours.OfficeHoursID, OfficeHours.OfficeHoursDays, " +
-                "OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, Faculty.OfficeLocation FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID " +
+                "OfficeHours.OHStartTime, OfficeHours.OHEndTime, OfficeHours.WaitingRoom, OfficeHours.IsRecurring, Faculty.OfficeLocation FROM Faculty INNER JOIN OfficeHours ON Faculty.FacultyID = OfficeHours.FacultyID " +
                 "WHERE Faculty.FacultyID = @FacultyID " +
                 "AND OfficeHours.OfficeHoursID = @OfficeHoursID;";
             cmdSpecOfficeHoursRead.Parameters.AddWithValue("@FacultyID", facultyid);
@@ -668,7 +622,7 @@ namespace Lab3.Pages.DB
             {
                 connection.Open();
 
-                string sqlQuery = "INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, FacultyID) VALUES(@OfficeHoursDays, @OHStartTime, @OHEndTime, @WaitingRoom, @FacultyID);";
+                string sqlQuery = "INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES(@OfficeHoursDays, @OHStartTime, @OHEndTime, @WaitingRoom, @IsRecurring, @FacultyID);";
 
                 using (SqlCommand command = new SqlCommand(sqlQuery, connection))
                 {
@@ -677,6 +631,7 @@ namespace Lab3.Pages.DB
                     command.Parameters.AddWithValue("@OHStartTime", o.OHStartTime);
                     command.Parameters.AddWithValue("@OHEndTime", o.OHEndTime);
                     command.Parameters.AddWithValue("@WaitingRoom", o.WaitingRoom);
+                    command.Parameters.AddWithValue("@IsRecurring", o.IsRecurring);
                     command.Parameters.AddWithValue("@FacultyID", facultyid);
 
                     command.ExecuteNonQuery();
@@ -724,5 +679,93 @@ namespace Lab3.Pages.DB
                 }
             }
         }
+
+        //public static void DeleteSpecificQueueRow(string username, string OHStartTime, string OHEndTime, string FacultyLast)
+
+        //{
+
+        //    using (SqlConnection connection = new SqlConnection(LabDBConnString))
+
+        //    {
+
+        //        connection.Open();
+
+        //        string query = "DELETE FROM Queue WHERE OfficeHoursID IN (SELECT OfficeHours.OfficeHoursID FROM OfficeHours JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Queue ON OfficeHours.OfficeHoursID = Queue.OfficeHoursID JOIN Student ON Queue.StudentID = Student.StudentID WHERE Student.Username = @Username AND (@OHStartTime IS NULL OR OfficeHours.OHStartTime = @OHStartTime) AND (@OHEndTime IS NULL OR OfficeHours.OHEndTime = @OHEndTime) AND (@FacultyLast IS NULL OR Faculty.FacultyLast = @FacultyLast));\r\n";
+
+        //        using (SqlCommand command = new SqlCommand(query, connection))
+
+        //        {
+
+        //            command.Parameters.AddWithValue("@Username", username);
+
+
+
+        //            if (string.IsNullOrEmpty(OHStartTime))
+
+        //            {
+
+        //                command.Parameters.AddWithValue("@OHStartTime", DBNull.Value);
+
+        //            }
+
+        //            else
+
+        //            {
+
+        //                command.Parameters.AddWithValue("@OHStartTime", OHStartTime);
+
+        //            }
+
+
+
+        //            if (string.IsNullOrEmpty(OHEndTime))
+
+        //            {
+
+        //                command.Parameters.AddWithValue("@OHEndTime", DBNull.Value);
+
+        //            }
+
+        //            else
+
+        //            {
+
+        //                command.Parameters.AddWithValue("@OHEndTime", OHEndTime);
+
+        //            }
+
+
+
+        //            if (string.IsNullOrEmpty(FacultyLast))
+
+        //            {
+
+        //                command.Parameters.AddWithValue("@FacultyLast", DBNull.Value);
+
+        //            }
+
+        //            else
+
+        //            {
+
+        //                command.Parameters.AddWithValue("@FacultyLast", FacultyLast);
+
+        //            }
+
+
+
+        //            command.ExecuteNonQuery();
+
+
+
+
+
+        //        }
+
+        //    }
+
+        //}
     }
 }
+
+
