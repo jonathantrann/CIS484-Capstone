@@ -212,19 +212,7 @@ namespace Lab3.Pages.DB
             using (SqlConnection connection = new SqlConnection(LabDBConnString))
             {
                 connection.Open();
-                //<<<<<<< HEAD
-                //                string query = "DELETE FROM Queue WHERE QueueID IN (SELECT Queue.QueueID FROM Queue JOIN OfficeHours ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Student ON Queue.StudentID = Student.StudentID WHERE (@Username IS NULL OR Student.Username = @Username) AND (@OHStartTime IS NULL OR OfficeHours.OHStartTime = @OHStartTime) AND (@OHEndTime IS NULL OR OfficeHours.OHEndTime = @OHEndTime) AND (@FacultyLast IS NULL OR Faculty.FacultyLast = @FacultyLast));";
-                //                using (SqlCommand command = new SqlCommand(query, connection))
-                //                {
-                //                    if (string.IsNullOrEmpty(username))
-                //                    {
-                //                        command.Parameters.AddWithValue("@Username", DBNull.Value);
-                //                    }
-                //                    else
-                //                    {
-                //                        command.Parameters.AddWithValue("@Username", username);
-                //                    }
-                //=======
+                
                 string query = "DELETE FROM Queue WHERE QueueID IN(SELECT Queue.QueueID FROM Queue JOIN OfficeHours ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Student ON Queue.StudentID = Student.StudentID WHERE(@Username IS NULL OR Student.Username = @Username) AND(@OHStartTime IS NULL OR OfficeHours.OHStartTime = @OHStartTime) AND(@OHEndTime IS NULL OR OfficeHours.OHEndTime = @OHEndTime) AND(@FacultyLast IS NULL OR Faculty.FacultyLast = @FacultyLast));";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
