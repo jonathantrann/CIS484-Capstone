@@ -1,0 +1,227 @@
+DROP TABLE FacultySchedule;
+DROP TABLE StudentSchedule;
+DROP TABLE Queue;
+DROP TABLE OfficeHours;
+DROP TABLE Class;
+DROP TABLE Student;
+DROP TABLE Faculty;
+
+
+
+CREATE TABLE Faculty(
+	FacultyID int IDENTITY(1,1) PRIMARY KEY,
+	FacultyFirst nvarchar(50) NOT NULL,
+	FacultyLast nvarchar(50) NOT NULL,
+	FacultyEmailAddress varchar (50) NOT NULL,
+	FacultyPhoneNumber varchar (15),
+	OfficeLocation varchar(50) NOT NULL,
+	Username varchar (50) NOT NULL,
+	type varchar(1) DEFAULT 'I' NOT NULL
+);
+
+CREATE TABLE Student(
+	StudentID int IDENTITY(1,1) PRIMARY KEY,
+	StudentFirst nvarchar(50) NOT NULL,
+	StudentLast nvarchar(50) NOT NULL,
+	StudentEmailAddress varchar (50) NOT NULL,
+	StudentPhoneNumber varchar (15),
+	Username varchar (50),
+	StudentPartnerID int FOREIGN KEY REFERENCES Student(StudentID),
+	type varchar(1) DEFAULT 'S' NOT NULL
+);
+
+CREATE TABLE Class(
+	ClassID int IDENTITY(1,1) PRIMARY KEY,
+	ClassName nvarchar(50) NOT NULL,
+	ClassSection int NOT NULL,
+	ClassStartTime varchar(20) NOT NULL,
+	ClassEndTime varchar(20) NOT NULL,
+	MeetingDays varchar(20) NOT NULL,
+	CreditHours int NOT NULL,
+	ClassDescription varchar(100) NOT NULL,
+	ClassLocation varchar(50) NOT NULL,
+	ClassCapacity int NOT NULL
+);
+
+CREATE TABLE OfficeHours(
+	OfficeHoursID int IDENTITY(1,1) PRIMARY KEY,
+	OfficeHoursDays varchar(20) NOT NULL,
+	OHStartTime time NOT NULL,
+	OHEndTime time NOT NULL,
+	WaitingRoom varchar (50) NOT NULL,
+	IsRecurring BIT NOT NULL DEFAULT 0,
+	FacultyID int FOREIGN KEY REFERENCES Faculty(FacultyID)
+);
+
+
+CREATE TABLE Queue(
+	QueueID int IDENTITY(1,1) PRIMARY KEY,
+	PurposeTime time,
+	MeetingPurpose varchar(30) NOT NULL,
+	QueuePosition int NOT NULL,
+	ready BIT NOT NULL DEFAULT 0,
+	StudentID int FOREIGN KEY REFERENCES Student(StudentID),
+	OfficeHoursID int FOREIGN KEY REFERENCES OfficeHours(OfficeHoursID)
+);
+
+CREATE TABLE StudentSchedule(
+	StudentScheduleID int IDENTITY (1,1) PRIMARY KEY,
+	StudentID int FOREIGN KEY REFERENCES Student(StudentID),
+	ClassID int FOREIGN KEY REFERENCES Class(ClassID),
+	TotalCreditHours int NOT NULL
+
+);
+
+CREATE TABLE FacultySchedule(
+	FacultyScheduleID int IDENTITY (1,1) PRIMARY KEY,
+	FacultyID int FOREIGN KEY REFERENCES Faculty(FacultyID),
+	ClassID int FOREIGN KEY REFERENCES Class(ClassID)
+
+);
+
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) VALUES ('Jeremy', 'Ezell',  'ezelljd@jmu.edu', '(540)-568-3222', 'Showker Hall 5010', 'ezelljd', 'I');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) VALUES ('John', 'Guo',  'guocx@jmu.edu', '(540)-568-3052', 'Showker Hall 5037', 'guocx', 'I');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) VALUES ('Dave', 'Jones', 'jonesdh@jmu.edu', '(540)-568-3067', 'Hartman Hall 3022', 'jonesdh', 'I');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) VALUES ('Amy', 'Connolly', 'amconn@jmu.edu', '(540)-533-3067', 'Hartman Hall 5010', 'amyconn', 'I');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) VALUES ('Tom', 'Dillon', 'dillont@jmu.edu', '(540)-324-1513', 'Hartman Hall 5011', 'tomdill', 'I');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) VALUES ('Jim', 'Jewett', 'jimj@jmu.edu', '(540)-849-2133', 'Hartman Hall 5020', 'jewettj', 'I');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) VALUES ('Shawn', 'Lough', 'slough@jmu.edu', '(540)-444-4033', 'Hartman Hall 5051', 'loughsh', 'I');
+
+INSERT INTO Faculty (FacultyFirst, FacultyLast, FacultyEmailAddress, FacultyPhoneNumber, OfficeLocation, Username, type) VALUES ('ADMIN', 'ADMIN', 'admin', 1, 'admin', 'admin', 'I');
+
+
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID, type) VALUES ('Jack', 'Riley',  'rileyjb@dukes.jmu.edu', '(540)-568-0000', 'rileyjb', NULL, 'S');
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID, type) VALUES ('Riley', 'Hadley',  'hadleyjr@dukes.jmu.edu', '(540)-568-0001', 'hadleyjr', NULL, 'S');
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID, type) VALUES ('Connor', 'Graham',  'grahamcn@dukes.jmu.edu', '(540)-568-0002', 'grahamcn', NULL, 'S');
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID, type) VALUES ('Nathan', 'Olafson',  'olafsons@dukes.jmu.edu', '(540)-455-5593', 'olafsons', NULL, 'S');
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID, type) VALUES ('Jonathan', 'Tran',  'tranjj@dukes.jmu.edu', '(540)-434-2002', 'tranjj', NULL, 'S');
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID, type) VALUES ('Nana', 'Mensah',  'mensah2ka@dukes.jmu.edu', '(540)-738-2402', 'mensan', NULL, 'S');
+
+INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, StudentPartnerID, type) VALUES ('USER', 'ADMIN', 'admin@lab3.com', '(540)-568-0030', 'admin', NULL, 'S');
+
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('CIS 484', '0001', '9:35:00', '10:50:00', 'TuThu', 3, 'CIS Capstone', 'Hartman Hall 2030', 30);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('COB 487', '0001', '8:00:00', '8:50:00', 'MWF', 3, 'COB Capstone', 'Hartman Hall 2025', 30);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('CIS 464', '0001', '9:35:00', '10:50:00', 'MW', 3, 'Project Management', 'Hartman Hall 3043', 30);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('CIS 331', '0003', '11:10:00', '12:25:00', 'TuThu', 3, 'Intermediate Programming', 'Hartman Hall 2006', 35);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('CIS 463', '0002', '9:35:00', '10:50:00', 'MW', 3, 'Business Intelligence', 'Hartman Hall 2045', 20);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('CIS 330', '0001', '13:00:00', '14:15:00', 'TuThu', 3, 'Database Programming', 'Hartman Hall 2008', 30);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('CIS 425', '0002', '11:10:00', '12:25:00', 'MW', 3, 'Defensive Cybersecurity', 'Hartman Hall 2032', 30);
+
+INSERT INTO Class (ClassName, ClassSection, ClassStartTime, ClassEndTime, MeetingDays, CreditHours, ClassDescription, ClassLocation, ClassCapacity) VALUES ('CIS 420', '0003', '9:35:00', '10:50:00', 'MW', 3, 'Computer-based Networking', 'Hartman Hall 2006', 30);
+
+
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Monday', '9:30', '11:30', 'Hartman 1001', 1, 1);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Wednesday', '11:00', '14:00', 'Hartman 1001', 1, 1);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Monday', '9:30', '11:30', 'Hartman 1002', 1, 2);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Wednesday', '11:00', '14:00', 'Hartman 1002', 1, 2);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Monday', '9:30', '11:30', 'Hartman 1003', 1, 3);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Wednesday', '11:00', '14:00', 'Hartman 1003', 1, 3);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Tuesday', '10:30', '12:30', 'Showker 5029', 1, 4);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Thursday', '13:00', '15:00', 'Showker 5029', 1, 4);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Monday', '11:30', '13:30', 'Hartman 3025', 1, 5);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Wednesday', '11:00', '14:00', 'Hartman 3025', 1, 5);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Tuesday', '9:00', '12:00', 'Showker 5034', 1, 6);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Thursday', '14:00', '16:00', 'Showker 5034', 1, 6);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Monday', '12:00', '14:00', 'Showker 5001', 1, 7);
+
+INSERT INTO OfficeHours (OfficeHoursDays, OHStartTime, OHEndTime, WaitingRoom, IsRecurring, FacultyID) VALUES ('Wednesday', '11:00', '13:00', 'Showker 5001', 1, 7);
+
+
+
+
+
+
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:15:00', 'Test Review', 0, 0, 2, 1);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:15:00', 'Assignment Review', 1, 0, 1, 1);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:10:00', 'Personal Reason', 2, 0, 3, 1);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:05:00', 'ODS Accomadations', 0, 0, 4, 2);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:15:00', 'Test Review', 1, 0, 2, 2);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:15:00', 'Assignment Review', 0, 0, 4, 3);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:10:00', 'Personal Reason', 1, 0, 3, 3);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:05:00', 'ODS Accomadations', 0, 0, 1, 4);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:15:00', 'Test Review', 1, 0, 5, 4);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:15:00', 'Assignment Review', 0, 0, 4, 5);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:10:00', 'Personal Reason', 1, 0, 6, 5);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:05:00', 'ODS Accomadation', 0, 0, 7, 6);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:15:00', 'Test Review', 1, 0, 5, 6);
+
+INSERT INTO Queue (PurposeTime, MeetingPurpose, QueuePosition, ready, StudentID, OfficeHoursID) VALUES ('00:15:00', 'Assignment Review', 0, 0, 6, 8);
+
+
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (2, 1, 3);
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (1, 2, 3);
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (3, 3, 3);
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (4, 5, 3);
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (5, 4, 3);
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (6, 7, 3);
+
+INSERT INTO StudentSchedule(StudentID, ClassID, TotalCreditHours) VALUES (7, 6, 3);
+
+
+
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (3, 1);
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (1, 2);
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (2, 3);
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (4, 5);
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (5, 6);
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (6, 4);
+
+INSERT INTO FacultySchedule(FacultyID, ClassID) VALUES (7, 8);
