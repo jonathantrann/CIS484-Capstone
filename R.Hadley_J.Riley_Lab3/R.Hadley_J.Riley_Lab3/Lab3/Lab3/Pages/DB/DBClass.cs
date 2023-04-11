@@ -310,8 +310,8 @@ namespace Lab3.Pages.DB
 
         public static int InsertStudent(Student s)
         {
-            string sqlQuery = "INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, type) OUTPUT INSERTED.StudentID " +
-                              "VALUES (@StudentFirst, @StudentLast, @StudentEmailAddress, @StudentPhoneNumber, @Username, @type);";
+            string sqlQuery = "INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, type, noShow) OUTPUT INSERTED.StudentID " +
+                              "VALUES (@StudentFirst, @StudentLast, @StudentEmailAddress, @StudentPhoneNumber, @Username, @type, @noShow);";
 
             SqlCommand cmdStudentRead = new SqlCommand();
             cmdStudentRead.Connection = LabDBConnection;
@@ -323,6 +323,7 @@ namespace Lab3.Pages.DB
             cmdStudentRead.Parameters.AddWithValue("@StudentPhoneNumber", s.StudentPhoneNumber);
             cmdStudentRead.Parameters.AddWithValue("@Username", s.Username);
             cmdStudentRead.Parameters.AddWithValue("@Type", s.type);
+            cmdStudentRead.Parameters.AddWithValue("@noShow", s.noShow);
 
             cmdStudentRead.Connection.Open();
             int studentId = (int)cmdStudentRead.ExecuteScalar();
@@ -466,6 +467,30 @@ namespace Lab3.Pages.DB
             }
 
             return false;
+        }
+
+        public static int NoShowCount(string Username)
+        {
+            LabDBConnection.Close();
+
+            string typeQuery = "SELECT noShow FROM Student WHERE Username = @Username";
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = LabDBConnection;
+            cmd.Connection.Close();
+            cmd.Connection.ConnectionString = LabDBConnString;
+
+            cmd.CommandText = typeQuery;
+            cmd.Parameters.AddWithValue("@Username", Username);
+
+            cmd.Connection.Open();
+            object count = cmd.ExecuteScalar();
+
+            cmd.Connection.Close();
+            LabDBConnection.Close();
+
+            // Return the value of the result variable, converted to an int
+            return Convert.ToInt32(count);
         }
 
         public static void CreateHashedUser(string Username, string Password)

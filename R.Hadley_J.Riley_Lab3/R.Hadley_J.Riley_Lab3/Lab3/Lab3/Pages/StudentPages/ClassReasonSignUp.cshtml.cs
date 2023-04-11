@@ -72,6 +72,7 @@ namespace Lab3.Pages.StudentPages
 
             // Get studentID based on email
             SqlDataReader studentIDReader = DBClass.GetStudentID(username);
+
             while (studentIDReader.Read())
             {
                 currentStudentID = Int32.Parse(studentIDReader["StudentID"].ToString());
@@ -99,6 +100,10 @@ namespace Lab3.Pages.StudentPages
 
                 // Redirect to Queue page
                 return RedirectToPage("/StudentPages/StudentHome");
+            }
+            if (DBClass.NoShowCount(username) >= 2)
+            {
+                TempData["Message"] = "You have already missed two or more office hours. Please delete appointment if you can not attend";
             }
         }
 

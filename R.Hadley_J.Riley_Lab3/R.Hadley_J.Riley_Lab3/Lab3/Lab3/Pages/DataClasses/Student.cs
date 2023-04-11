@@ -16,5 +16,6 @@
 
         public String? Username { get; set; }
         public String? type { get; set;}
+        public int noShow { get; set; }
     }
 }

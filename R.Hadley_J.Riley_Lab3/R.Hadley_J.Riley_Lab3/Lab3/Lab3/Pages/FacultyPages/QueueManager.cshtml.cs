@@ -107,5 +107,21 @@ namespace Lab3.Pages.FacultyPages
             DBClass.NotifyStudent(queueId, currentPosition, newPostion);
             return RedirectToPage("/FacultyPages/QueueManager");
         }
+
+        public void OnPost()
+        {
+            var connectionString = "Server=LocalHost;Database=Lab3;Trusted_Connection=True";
+            var username = "@Username";
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand("UPDATE Student SET noShow = noShow + 1 WHERE Username = @Username", connection);
+                command.Parameters.AddWithValue("@Username", username);
+                command.ExecuteNonQuery();
+            }
+
+            TempData["Message"] = "No Show count updated.";
+        }
     }
 }

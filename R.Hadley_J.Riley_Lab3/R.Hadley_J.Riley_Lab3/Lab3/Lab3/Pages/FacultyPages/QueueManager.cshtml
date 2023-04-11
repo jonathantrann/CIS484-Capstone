@@ -219,15 +219,22 @@
                                 <input type="hidden" name="queueId" value="@queue.QueueID" />
                                 <button type="submit" class="btn btn-outline-success">Notify</button>
                             </form>
-
+                            <form method="post" asp-page-handler="OnPost">
+                                <!-- form elements -->
+                                <button type="submit" class="btn btn-outline-primary">No Show</button>
+                            </form>
                         </div>
                     </td>
                 </tr>
-               
+                
             }
 
         </tbody>
     </table>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
 
 
     <br />
