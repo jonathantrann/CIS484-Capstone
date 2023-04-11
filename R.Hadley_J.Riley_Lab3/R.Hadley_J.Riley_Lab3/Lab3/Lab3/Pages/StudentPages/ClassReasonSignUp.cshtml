@@ -155,9 +155,10 @@
 
 
     <select id="class" name="Class" class="form-select">
+    <option value="" disabled selected> Class Selection</option>
+
         @foreach (var cls in Model.ClassList)
         {
-            <option value="" disabled selected> Class Selection</option>
             <option value="@cls.ClassID">@cls.ClassName</option>
         }
     </select>

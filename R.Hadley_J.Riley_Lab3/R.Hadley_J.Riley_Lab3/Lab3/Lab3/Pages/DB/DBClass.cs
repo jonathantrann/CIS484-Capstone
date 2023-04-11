@@ -202,6 +202,8 @@ namespace Lab3.Pages.DB
 
         public static int InsertStudent(Student s)
         {
+            LabDBConnection.Close();
+
             string sqlQuery = "INSERT INTO Student (StudentFirst, StudentLast, StudentEmailAddress, StudentPhoneNumber, Username, type, noShow) OUTPUT INSERTED.StudentID " +
                               "VALUES (@StudentFirst, @StudentLast, @StudentEmailAddress, @StudentPhoneNumber, @Username, @type, @noShow);";
 
@@ -755,8 +757,6 @@ namespace Lab3.Pages.DB
                 string sqlQuery = @"
             UPDATE Queue SET ready = 1, QueuePosition = QueuePosition - 1 + 0
             WHERE queueID = @queueID;
-            
-            DELETE FROM Queue WHERE queueID = @queueID AND QueuePosition = 0;
         ";
 
                 using (SqlCommand command = new SqlCommand(sqlQuery, connection))
