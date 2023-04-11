@@ -108,17 +108,29 @@ namespace Lab3.Pages.FacultyPages
             return RedirectToPage("/FacultyPages/QueueManager");
         }
 
-        public void OnPost()
+        public void OnPost(string username, DateTime? ohStartTime, DateTime? ohEndTime, string facultyLast)
         {
             var connectionString = "Server=LocalHost;Database=Lab3;Trusted_Connection=True";
-            var username = "@Username";
 
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var command = new SqlCommand("UPDATE Student SET noShow = noShow + 1 WHERE Username = @Username", connection);
-                command.Parameters.AddWithValue("@Username", username);
-                command.ExecuteNonQuery();
+
+                if (!string.IsNullOrEmpty(username))
+                {
+                    var updateCommand = new SqlCommand("UPDATE Student SET noShow = noShow + 1 WHERE Username = @Username", connection);
+                    updateCommand.Parameters.AddWithValue("@Username", username);
+                    updateCommand.ExecuteNonQuery();
+                }
+
+                var deleteCommand = new SqlCommand("DELETE FROM Queue WHERE QueueID IN(SELECT Queue.QueueID FROM Queue JOIN OfficeHours ON Queue.OfficeHoursID = OfficeHours.OfficeHoursID JOIN Faculty ON OfficeHours.FacultyID = Faculty.FacultyID JOIN Student ON Queue.StudentID = Student.StudentID WHERE(@Username IS NULL OR Student.Username = @Username) AND(@OHStartTime IS NULL OR OfficeHours.OHStartTime = @OHStartTime) AND(@OHEndTime IS NULL OR OfficeHours.OHEndTime = @OHEndTime) AND(@FacultyLast IS NULL OR Faculty.FacultyLast = @FacultyLast));", connection);
+
+                deleteCommand.Parameters.AddWithValue("@Username", (object)username ?? DBNull.Value);
+                deleteCommand.Parameters.AddWithValue("@OHStartTime", (object)ohStartTime ?? DBNull.Value);
+                deleteCommand.Parameters.AddWithValue("@OHEndTime", (object)ohEndTime ?? DBNull.Value);
+                deleteCommand.Parameters.AddWithValue("@FacultyLast", (object)facultyLast ?? DBNull.Value);
+
+                deleteCommand.ExecuteNonQuery();
             }
 
             TempData["Message"] = "No Show count updated.";
