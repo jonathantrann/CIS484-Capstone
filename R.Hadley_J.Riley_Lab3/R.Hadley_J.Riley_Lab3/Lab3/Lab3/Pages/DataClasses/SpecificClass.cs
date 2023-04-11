@@ -6,7 +6,7 @@
 
         public String? ClassName { get; set; }
 
-        public int ClassSection { get; set; }
+        public int? ClassSection { get; set; }
 
         public String? ClassStartTime { get; set; }
 
@@ -14,13 +14,13 @@
 
         public String? MeetingDays { get; set; }
 
-        public int CreditHours { get; set; }
+        public int? CreditHours { get; set; }
 
         public String? ClassDescription { get; set; }
 
         public String? ClassLocation { get; set; }
 
-        public int ClassCapacity { get; set; }
+        public int? ClassCapacity { get; set; }
 
         public int FacultyID { get; set; }
 

@@ -38,11 +38,7 @@ namespace Lab3.Pages.StudentPages
         public void OnGet()
         {
 
-            int selectedFacultyID = HttpContext.Session.GetInt32("selectedFacultyID") ?? 0;
-
-            int selectedOfficeHoursID = HttpContext.Session.GetInt32("selectedOfficeHoursID") ?? 0;
-
-            HttpContext.Session.SetInt32("selectedOfficeHoursID", selectedOfficeHoursID); // store the value in the session data
+            
 
 
             SqlDataReader specificFacultyClassesReader = DBClass.SpecificFacultyClassesReader(selectedFacultyID);

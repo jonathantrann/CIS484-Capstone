@@ -1,0 +1,14 @@
+﻿@page
+@model Lab3.Pages.Login.SelectClassModel
+@{
+}
+<div>
+    <label for="Classes">Class Selection:</label>
+        @foreach (var cls in Model.ClassList)
+        {
+            <div>
+                <input type="checkbox" id="class-@cls.ClassID" name="ClassIDs" value="@cls.ClassID">
+                <label for="class-@cls.ClassID">@cls.ClassName</label>
+            </div>
+        }
+   </div>
